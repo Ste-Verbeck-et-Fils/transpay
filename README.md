@@ -38,3 +38,16 @@ frontend/
 - Interface de paiement Mobile Money
 - Affichage du ticket numérique
 - Historique des paiements
+
+## Installation du projet
+
+```bash
+git clone https://github.com/Ste-Verbeck-et-Fils/transpay.git
+
+cd transpay
+
+npm install
+
+npm run dev
+
+```
