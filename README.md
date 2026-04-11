@@ -2,6 +2,10 @@
 
 TransPay Frontend est l’application côté client du système TransPay, une plateforme de paiement automatisé du transport en commun utilisant le Mobile Money.
 
+## Objectif du projet
+
+Cette application fait partie du projet TransPay, conçu pour faciliter le paiement des frais de transport en commun à travers un système rapide, sécurisé et sans argent liquide.
+
 ## Technologies frontend
 
 - React vite
