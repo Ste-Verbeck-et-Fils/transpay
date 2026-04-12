@@ -19,6 +19,8 @@ frontend/
 ├── src/
 │ ├── assets/
 │ ├── components/
+│ │ ├── ui/
+│ │ ├── layout/
 │ ├── pages/
 │ ├── layouts/
 │ ├── routes/

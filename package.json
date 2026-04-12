@@ -1,0 +1,19 @@
+{
+  "name": "transpay.frontend",
+  "version": "1.0.0",
+  "description": "TransPay Frontend est l’application côté client du système TransPay, une plateforme de paiement automatisé du transport en commun utilisant le Mobile Money.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ste-Verbeck-et-Fils/transpay.git"
+  },
+  "author": "ISIG STUDENT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ste-Verbeck-et-Fils/transpay/issues"
+  },
+  "homepage": "https://github.com/Ste-Verbeck-et-Fils/transpay#readme"
+}
