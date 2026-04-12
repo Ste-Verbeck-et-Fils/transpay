@@ -53,3 +53,31 @@ npm install
 npm run dev
 
 ```
+
+## Comment contribuer
+
+### une fois l'installation du projet effectuée
+
+-creer une branche feature portant le nom du module à developper
+
+### exemple :
+
+```bash
+git checkout develop
+git checkout -b feature/paiement
+```
+
+- Commit vos changements
+
+```bash
+git add .
+git commit -m "feat: description du changement..."
+```
+
+- Push vers la branche votre branche créé précédemment
+
+```bash
+git push origin feature/paiement
+```
+
+- Creer une Pull Request
