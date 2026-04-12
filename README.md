@@ -58,7 +58,7 @@ npm run dev
 
 ### une fois l'installation du projet effectuée
 
--creer une branche feature portant le nom du module à developper
+- creer une branche feature portant le nom du module à developper
 
 ### exemple :
 
@@ -74,7 +74,7 @@ git add .
 git commit -m "feat: description du changement..."
 ```
 
-- Push vers la branche votre branche créé précédemment
+- Push vers votre branche créé précédemment
 
 ```bash
 git push origin feature/paiement
