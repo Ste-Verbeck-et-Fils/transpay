@@ -4,6 +4,7 @@
   "description": "TransPay Frontend est l’application côté client du système TransPay, une plateforme de paiement automatisé du transport en commun utilisant le Mobile Money.",
   "main": "index.js",
   "scripts": {
+    "dev": "vite",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/Ste-Verbeck-et-Fils/transpay/issues"
   },
-  "homepage": "https://github.com/Ste-Verbeck-et-Fils/transpay#readme"
+  "homepage": "https://github.com/Ste-Verbeck-et-Fils/transpay#readme",
+  "devDependencies": {
+    "vite": "^8.0.8"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  }
 }
