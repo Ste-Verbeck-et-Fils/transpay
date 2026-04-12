@@ -1,0 +1,20 @@
+:root {
+  --primary-color: #ffb800;
+  --primary-hover: #e6a600;
+  --secondary-bg: #f3f4f6;
+  --success-bg: #ecfdf5;
+  --success-text: #059669;
+  --error-bg: #fef2f2;
+  --error-text: #dc2626;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --border-radius: 12px;
+  --font-family: "Inter", sans-serif;
+}
+body {
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: var(--text-main);
+}
