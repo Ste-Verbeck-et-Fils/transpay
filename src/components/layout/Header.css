@@ -1,4 +1,5 @@
 .header-container {
+  box-sizing: border-box;
   width: 100%;
   background-color: white;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
@@ -6,10 +7,11 @@
   top: 0;
   z-index: 1000;
   font-family: var(--font-family);
+  padding: 0 2%;
 }
 
 .header-content {
-  width: 75%;
+  width: 100%;
   margin: 0 auto;
   height: 60px;
   display: flex;
@@ -186,5 +188,11 @@
 
   .mobile-menu-btn {
     display: block;
+  }
+}
+
+@media (max-width: 330px) {
+  .header-btn {
+    display: none !important;
   }
 }
