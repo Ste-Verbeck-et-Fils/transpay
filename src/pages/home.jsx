@@ -8,7 +8,7 @@ import '../styles/home.css';
 import busHero from '../assets/images/bus.png';
 import taxiChauffeur from '../assets/images/taxichauffeur.png';
 import mapRDC from '../assets/images/carte_rdc.png';
-import scanBus from '../assets/images/scan bus.png';
+import scanBus from '../assets/images/scan_bus.png';
 
 const Home = () => {
   return (

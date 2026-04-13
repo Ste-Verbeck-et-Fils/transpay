@@ -181,8 +181,7 @@
 }
 
 @media (max-width: 768px) {
-  .header-nav,
-  .header-btn {
+  .header-nav {
     display: none;
   }
 
