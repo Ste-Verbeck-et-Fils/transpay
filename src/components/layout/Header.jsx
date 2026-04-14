@@ -19,7 +19,6 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Fermer le menu mobile lors de la navigation
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
@@ -113,4 +112,3 @@ const Header = () => {
 };
 
 export default Header;
-
