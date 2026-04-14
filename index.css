@@ -22,7 +22,8 @@ body {
   padding: 0;
   background-color: #f8f9fa;
   color: var(--text-main);
-  zoom: 80%;
+
+  min-height: 100%;
 }
 
 main {

@@ -1,38 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
 import Button from "../ui/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 const Header = () => {
-  const [activeLink, setActiveLink] = useState("Home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const navLinks = ["Home", "Trajet", "Historique", "Profile"];
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Trajet", path: "/trajet" },
+    { name: "Historique", path: "/historique" },
+    { name: "Profile", path: "/profile" },
+  ];
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Fermer le menu mobile lors de la navigation
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
+
+  const isActive = (path) => {
+    if (path === "/" && location.pathname === "/") return true;
+    if (path !== "/" && location.pathname.startsWith(path)) return true;
+    return false;
+  };
+
   return (
     <header className="header-container">
       <div className="header-content">
-        <div className="header-logo">TransPay</div>
+        <div className="header-logo" onClick={() => navigate("/")}>
+          TransPay
+        </div>
 
         <nav className="header-nav">
           {navLinks.map((link) => (
             <div
-              key={link}
-              className={`nav-link-wrapper ${activeLink === link ? "active" : ""}`}
-              onClick={() => {
-                setActiveLink(link);
-                navigate(`/${link.toLowerCase()}`);
-              }}
+              key={link.name}
+              className={`nav-link-wrapper ${isActive(link.path) ? "active" : ""}`}
             >
-              <a href={`/${link.toLowerCase()}`} className="nav-link">
-                {link}
-              </a>
-              {activeLink === link && <div className="nav-indicator"></div>}
+              <Link to={link.path} className="nav-link">
+                {link.name}
+              </Link>
+              {isActive(link.path) && <div className="nav-indicator"></div>}
             </div>
           ))}
         </nav>
@@ -57,7 +71,9 @@ const Header = () => {
 
       <nav className={`mobile-nav-drawer ${isMenuOpen ? "open" : ""}`}>
         <div className="mobile-nav-header">
-          <div className="header-logo">TransPay</div>
+          <div className="header-logo" onClick={() => navigate("/")}>
+            TransPay
+          </div>
           <button className="close-menu-btn" onClick={toggleMenu}>
             <i className="bi bi-x"></i>
           </button>
@@ -65,18 +81,13 @@ const Header = () => {
 
         <div className="mobile-links-container">
           {navLinks.map((link) => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              className={`mobile-nav-link ${activeLink === link ? "active" : ""}`}
-              onClick={() => {
-                setActiveLink(link);
-                setIsMenuOpen(false);
-                navigate(`/${link.toLowerCase()}`);
-              }}
+            <Link
+              key={link.name}
+              to={link.path}
+              className={`mobile-nav-link ${isActive(link.path) ? "active" : ""}`}
             >
-              {link}
-            </a>
+              {link.name}
+            </Link>
           ))}
         </div>
 
@@ -102,3 +113,4 @@ const Header = () => {
 };
 
 export default Header;
+
