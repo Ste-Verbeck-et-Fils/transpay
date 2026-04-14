@@ -8,7 +8,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  const navLinks = ["Home", "Trips", "History", "Profile"];
+  const navLinks = ["Home", "Trajet", "Historique", "Profile"];
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -24,9 +24,12 @@ const Header = () => {
             <div
               key={link}
               className={`nav-link-wrapper ${activeLink === link ? "active" : ""}`}
-              onClick={() => setActiveLink(link)}
+              onClick={() => {
+                setActiveLink(link);
+                navigate(`/${link.toLowerCase()}`);
+              }}
             >
-              <a href={`#${link.toLowerCase()}`} className="nav-link">
+              <a href={`/${link.toLowerCase()}`} className="nav-link">
                 {link}
               </a>
               {activeLink === link && <div className="nav-indicator"></div>}
@@ -69,6 +72,7 @@ const Header = () => {
               onClick={() => {
                 setActiveLink(link);
                 setIsMenuOpen(false);
+                navigate(`/${link.toLowerCase()}`);
               }}
             >
               {link}
@@ -77,6 +81,14 @@ const Header = () => {
         </div>
 
         <div className="mobile-nav-footer">
+          <Button
+            text="S'inscrire"
+            variant="outline"
+            className="mobile-login-btn"
+            onClick={() => navigate("/register")}
+          />
+          <br />
+          <br />
           <Button
             text="Se connecter"
             variant="primary"
