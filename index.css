@@ -22,6 +22,7 @@ body {
   padding: 0;
   background-color: #f8f9fa;
   color: var(--text-main);
+  zoom: 80%;
 }
 
 main {
@@ -42,4 +43,10 @@ main {
   align-items: center;
   gap: 8px;
   border: 1px solid rgba(220, 38, 38, 0.1);
+}
+
+@media (max-width: 768px) {
+  body {
+    zoom: 100%;
+  }
 }
