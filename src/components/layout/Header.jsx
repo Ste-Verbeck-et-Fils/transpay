@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import "./Header.css";
 import Button from "../ui/Button";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [activeLink, setActiveLink] = useState("Home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navLinks = ["Home", "Trips", "History", "Profile"];
 
@@ -17,7 +19,6 @@ const Header = () => {
       <div className="header-content">
         <div className="header-logo">TransPay</div>
 
-        {/* Desktop Navigation */}
         <nav className="header-nav">
           {navLinks.map((link) => (
             <div
@@ -38,16 +39,15 @@ const Header = () => {
             text="Se connecter"
             variant="primary"
             className="header-btn"
+            onClick={() => navigate("/login")}
           />
 
-          {/* Mobile Menu Toggle */}
           <button className="mobile-menu-btn" onClick={toggleMenu}>
             <i className={`bi bi-${isMenuOpen ? "x" : "list"}`}></i>
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer & Backdrop */}
       {isMenuOpen && (
         <div className="mobile-menu-overlay" onClick={toggleMenu}></div>
       )}
@@ -81,6 +81,7 @@ const Header = () => {
             text="Se connecter"
             variant="primary"
             className="mobile-login-btn"
+            onClick={() => navigate("/login")}
           />
         </div>
       </nav>

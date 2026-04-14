@@ -2,6 +2,7 @@
   --primary-color: #ffb800;
   --primary-hover: #e6a600;
   --secondary-bg: #f3f4f6;
+  --form-bg: #fdfeff;
   --success-bg: #ecfdf5;
   --success-text: #059669;
   --error-bg: #fef2f2;
@@ -11,11 +12,34 @@
   --border-radius: 12px;
   --font-family: "Inter", sans-serif;
 }
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: var(--font-family);
   margin: 0;
   padding: 0;
   background-color: #f8f9fa;
   color: var(--text-main);
-  zoom: 80%;
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.alert-danger {
+  background-color: var(--error-bg);
+  color: var(--error-text);
+  padding: 12px;
+  border-radius: var(--border-radius);
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(220, 38, 38, 0.1);
 }
