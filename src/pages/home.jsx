@@ -4,7 +4,6 @@ import Footer from "../components/layout/Footer";
 import Button from "../components/ui/Button";
 import "../styles/home.css";
 
-// Assets
 import busHero from "../assets/images/bus.png";
 import taxiChauffeur from "../assets/images/taxichauffeur.png";
 import mapRDC from "../assets/images/carte_rdc.png";
@@ -16,10 +15,9 @@ const Home = () => {
       <Header />
 
       <main className="home-main">
-        {/* Hero Section */}
         <section
           className="hero-section"
-          style={{ backgroundImage: `url("${busHero}")` }}
+          style={{ backgroundImage: `url(${busHero})` }}
         >
           <div className="hero-overlay">
             <div className="hero-content">
@@ -32,10 +30,8 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Features Section */}
         <div className="features-wrapper">
           <section className="features-grid">
-            {/* Recharger Card */}
             <div className="feature-card white-card recharge-card">
               <div className="icon-wrapper">
                 <i className="bi bi-wallet2"></i>
@@ -50,7 +46,6 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Rapid Payment Card */}
             <div className="feature-card orange-card rapid-payment">
               <div className="card-info">
                 <h3>Rapid payment</h3>
@@ -63,7 +58,6 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Digital Ticket Card */}
             <div className="feature-card white-card ticket-card">
               <div className="icon-wrapper">
                 <i className="bi bi-ticket-perforated"></i>
@@ -76,7 +70,6 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Security Card */}
             <div className="feature-card white-card security-card">
               <div className="icon-wrapper">
                 <i className="bi bi-shield-lock"></i>
@@ -92,7 +85,6 @@ const Home = () => {
           </section>
         </div>
 
-        {/* Chauffeur Section */}
         <section className="chauffeur-section">
           <div className="chauffeur-wrapper">
             <div className="chauffeur-content">
@@ -125,7 +117,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Live Tracking Section */}
         <section className="tracking-section">
           <div className="tracking-content">
             <div className="map-container">
