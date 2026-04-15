@@ -5,6 +5,7 @@ import { useNavigate, useLocation, Link } from "react-router";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -21,7 +22,18 @@ const Header = () => {
 
   useEffect(() => {
     setIsMenuOpen(false);
+    setIsLoggedIn(!!localStorage.getItem('token'));
   }, [location]);
+
+  const handleAuthAction = () => {
+    if (isLoggedIn) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      navigate('/login');
+      return;
+    }
+    navigate('/login');
+  };
 
   const isActive = (path) => {
     if (path === "/" && location.pathname === "/") return true;
@@ -52,10 +64,10 @@ const Header = () => {
 
         <div className="header-actions">
           <Button
-            text="Se connecter"
+            text={isLoggedIn ? "Se déconnecter" : "Se connecter"}
             variant="primary"
             className="header-btn"
-            onClick={() => navigate("/login")}
+            onClick={handleAuthAction}
           />
 
           <button className="mobile-menu-btn" onClick={toggleMenu}>
@@ -100,10 +112,10 @@ const Header = () => {
           <br />
           <br />
           <Button
-            text="Se connecter"
+            text={isLoggedIn ? "Se déconnecter" : "Se connecter"}
             variant="primary"
             className="mobile-login-btn"
-            onClick={() => navigate("/login")}
+            onClick={handleAuthAction}
           />
         </div>
       </nav>
