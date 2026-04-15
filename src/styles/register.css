@@ -32,3 +32,10 @@ a {
   justify-content: center;
   align-items: center;
 }
+
+@media (max-width: 768px) {
+  .register-section {
+    background-color: white;
+    box-shadow: none;
+  }
+}
