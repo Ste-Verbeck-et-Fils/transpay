@@ -19,7 +19,7 @@ const Paiement = () => {
 
     const displayBus = bus || {
         type_bus: "Minibus Hiace",
-        nom_chauffeur: "JEAN-MARC VERBECK",
+        nom_proprietaire: "JEAN-MARC VERBECK",
         numero_enregistrement: "TP-8842"
     };
 
@@ -97,14 +97,14 @@ const Paiement = () => {
                     <section className="chauffeur-card">
                         <div className="driver-info">
                             <div className="driver-avatar-wrapper">
-                                <img src={taxiChauffeurImg} alt="Driver" className="driver-avatar" />
+                                <img src={taxiChauffeurImg} alt="Propriétaire" className="driver-avatar" />
                                 <div className="verified-icon">
                                     <i className="bi bi-check"></i>
                                 </div>
                             </div>
                             <div className="driver-name-box">
-                                <span className="d-label">CONDUCTEUR</span>
-                                <h3>{displayBus.nom_chauffeur}</h3>
+                                <span className="d-label">PROPRIÉTAIRE</span>
+                                <h3>{displayBus.nom_proprietaire}</h3>
                             </div>
                         </div>
                         <div className="rating-box">
