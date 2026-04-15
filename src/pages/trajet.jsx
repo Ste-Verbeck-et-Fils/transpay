@@ -1,32 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import "../styles/trajet.css";
 
 const Trajet = () => {
-  const trajets = [
-    {
-      id: 1,
-      depart: "Rond-Point BDGL",
-      destination: "Birere",
-      tarif: "500",
-      frequence: "15 min",
-    },
-    {
-      id: 2,
-      depart: "Majengo",
-      destination: "Marché Virunga",
-      tarif: "500",
-      frequence: "10 min",
-    },
-    {
-      id: 3,
-      depart: "Katindo",
-      destination: "Centre-Ville",
-      tarif: "500",
-      frequence: "20 min",
-    },
-  ];
+  const [trajets, setTrajets] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTrajets = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/trajets");
+        const data = await response.json();
+        if (data.success) {
+          setTrajets(data.data);
+        } else {
+          setError(data.message);
+        }
+      } catch (err) {
+        setError("Impossible de charger les trajets. Vérifiez votre connexion.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTrajets();
+  }, []);
 
   return (
     <div className="trajet-page">
@@ -49,7 +49,29 @@ const Trajet = () => {
         </section>
 
         <section className="trajets-list">
-          {trajets.map((t) => (
+          {loading && (
+            <div className="status-message loading">
+              <div className="spinner"></div>
+              <p>Recherche des trajets...</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="status-message error">
+              <i className="bi bi-exclamation-triangle"></i>
+              <p>{error}</p>
+              <button onClick={() => window.location.reload()} className="retry-btn">Réessayer</button>
+            </div>
+          )}
+
+          {!loading && !error && trajets.length === 0 && (
+            <div className="status-message empty">
+              <i className="bi bi-info-circle"></i>
+              <p>Aucun trajet disponible pour le moment.</p>
+            </div>
+          )}
+
+          {!loading && !error && trajets.map((t) => (
             <div key={t.id} className="trajet-card">
               <div className="card-header">
                 <div className="journey-info">
@@ -57,7 +79,7 @@ const Trajet = () => {
                     <div className="point-icon depart"></div>
                     <div className="point-text">
                       <span className="label">DÉPART</span>
-                      <span className="value">{t.depart}</span>
+                      <span className="value">{t.point_depart}</span>
                     </div>
                   </div>
                   <div className="journey-line"></div>
@@ -65,14 +87,14 @@ const Trajet = () => {
                     <div className="point-icon destination"></div>
                     <div className="point-text">
                       <span className="label">DESTINATION</span>
-                      <span className="value">{t.destination}</span>
+                      <span className="value">{t.point_arrivee}</span>
                     </div>
                   </div>
                 </div>
                 <div className="tarif-info">
                   <span className="label">TARIF</span>
                   <div className="price">
-                    <strong>{t.tarif}</strong>
+                    <strong>{Math.floor(t.prix)}</strong>
                     <span className="currency">CDF</span>
                   </div>
                 </div>
@@ -83,7 +105,7 @@ const Trajet = () => {
               <div className="card-footer">
                 <div className="frequency">
                   <i className="bi bi-clock"></i>
-                  <span>Toutes les {t.frequence}</span>
+                  <span>Toutes les {t.duree_estimee}</span>
                 </div>
                 <button className="btn-choisir">Choisir</button>
               </div>

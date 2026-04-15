@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import "../styles/login.css";
@@ -31,14 +31,36 @@ function Login() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
       setIsLoading(true);
-      setTimeout(() => {
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            telephone: formData.phone,
+            motdepasse: formData.password,
+          }),
+        });
+        const data = await response.json();
+        if (data.success) {
+          // Store token
+          localStorage.setItem('token', data.data.token);
+          localStorage.setItem('user', JSON.stringify(data.data.user));
+          // Navigate to home or profile
+          window.location.href = '/profile';
+        } else {
+          setErrors({ general: data.message });
+        }
+      } catch (error) {
+        setErrors({ general: 'Erreur de connexion au serveur' });
+      } finally {
         setIsLoading(false);
-        setErrors({ general: "Identifiants invalides" });
-      }, 1500);
+      }
     }
   };
 

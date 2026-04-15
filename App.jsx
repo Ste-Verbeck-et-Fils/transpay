@@ -8,7 +8,7 @@ import Trajet from "./src/pages/trajet";
 import Paiement from "./src/pages/paiement";
 import Scan from "./src/pages/scan";
 import Ticket from "./src/pages/ticket";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router";
 import "./index.css";
 
 const App = () => {
