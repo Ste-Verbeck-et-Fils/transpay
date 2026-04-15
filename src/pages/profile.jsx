@@ -17,6 +17,14 @@ const Profile = () => {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState(null)
   const [message, setMessage] = useState(null)
+  const [passwordData, setPasswordData] = useState({
+    oldPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  })
+  const [passwordLoading, setPasswordLoading] = useState(false)
+  const [passwordError, setPasswordError] = useState(null)
+  const [passwordMessage, setPasswordMessage] = useState(null)
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -153,6 +161,70 @@ const Profile = () => {
     setMessage(null)
   }
 
+  const handlePasswordChange = async e => {
+    e.preventDefault()
+    setPasswordError(null)
+    setPasswordMessage(null)
+
+    if (
+      !passwordData.oldPassword ||
+      !passwordData.newPassword ||
+      !passwordData.confirmPassword
+    ) {
+      setPasswordError('Tous les champs sont requis')
+      return
+    }
+
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setPasswordError('Les mots de passe ne correspondent pas')
+      return
+    }
+
+    if (passwordData.newPassword.length < 6) {
+      setPasswordError(
+        'Le nouveau mot de passe doit contenir au moins 6 caractères'
+      )
+      return
+    }
+
+    const token = localStorage.getItem('token')
+    setPasswordLoading(true)
+    try {
+      const response = await fetch('http://localhost:5000/api/change-password', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          ancienne_mot_de_passe: passwordData.oldPassword,
+          nouveau_mot_de_passe: passwordData.newPassword
+        })
+      })
+      const data = await response.json()
+      if (data.success) {
+        setPasswordMessage('Mot de passe mis à jour avec succès.')
+        setPasswordData({
+          oldPassword: '',
+          newPassword: '',
+          confirmPassword: ''
+        })
+      } else {
+        setPasswordError(data.message)
+      }
+    } catch (err) {
+      setPasswordError('Erreur lors du changement de mot de passe.')
+    } finally {
+      setPasswordLoading(false)
+    }
+  }
+
+  const handlePasswordInputChange = (e, field) => {
+    setPasswordData({ ...passwordData, [field]: e.target.value })
+    setPasswordError(null)
+    setPasswordMessage(null)
+  }
+
   if (loading) {
     return <div>Chargement...</div>
   }
@@ -195,42 +267,94 @@ const Profile = () => {
         </div>
 
         <div className='profile-edit-card'>
-          <h3>Modifier mes informations</h3>
+          <h3><i className="bi bi-person-lines-fill"></i> Modifier mes informations</h3>
           {message && <div className='alert-success'>{message}</div>}
           {error && <div className='alert-danger'>{error}</div>}
           <form className='profile-edit-form' onSubmit={handleSave}>
-            <div className='detail-text'>
-              <span className='detail-label'>IDENTITÉ</span>
-              <span className='detail-value'>{userData.identite}</span>
+            <div className='form-grid'>
+              <div className='detail-text compact'>
+                <span className='detail-label'>IDENTITÉ</span>
+                <span className='detail-value'>{userData.identite}</span>
+              </div>
+              <Input
+                label='Nom complet'
+                placeholder='Entrez votre nom'
+                value={formData.name}
+                onChange={e => handleChange(e, 'name')}
+              />
+              <Input
+                label='Numéro de téléphone'
+                isPhone={true}
+                placeholder='000000 000'
+                value={formData.phone}
+                onChange={e => handleChange(e, 'phone')}
+              />
             </div>
-            <Input
-              label='Nom complet'
-              placeholder='Entrez votre nom'
-              value={formData.name}
-              onChange={e => handleChange(e, 'name')}
-            />
-            <Input
-              label='Numéro de téléphone'
-              isPhone={true}
-              placeholder='000000 000'
-              value={formData.phone}
-              onChange={e => handleChange(e, 'phone')}
-            />
-            <Button
-              text={saving ? 'Enregistrement...' : 'Enregistrer'}
-              type='submit'
-              isLoading={saving}
-            />
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
+              <Button
+                text={saving ? 'Enregistrement...' : 'Enregistrer'}
+                type='submit'
+                isLoading={saving}
+                style={{ width: 'auto', minWidth: '180px' }}
+              />
+            </div>
           </form>
         </div>
 
-        <div className='logout-section'>
-          <div className='logout-btn' onClick={handleLogout}>
+        <div className='profile-edit-card'>
+          <h3><i className="bi bi-shield-lock-fill"></i> Changer le mot de passe</h3>
+          {passwordMessage && (
+            <div className='alert-success'>{passwordMessage}</div>
+          )}
+          {passwordError && <div className='alert-danger'>{passwordError}</div>}
+          <form
+            className='profile-edit-form'
+            onSubmit={handlePasswordChange}
+          >
+            <div className='form-grid'>
+              <div className="full-width">
+                <Input
+                  label='Ancien mot de passe'
+                  type='password'
+                  placeholder='••••••••'
+                  value={passwordData.oldPassword}
+                  onChange={e => handlePasswordInputChange(e, 'oldPassword')}
+                />
+              </div>
+              <Input
+                label='Nouveau mot de passe'
+                type='password'
+                placeholder='••••••••'
+                value={passwordData.newPassword}
+                onChange={e => handlePasswordInputChange(e, 'newPassword')}
+              />
+              <Input
+                label='Confirmer le mot de passe'
+                type='password'
+                placeholder='••••••••'
+                value={passwordData.confirmPassword}
+                onChange={e => handlePasswordInputChange(e, 'confirmPassword')}
+              />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '10px' }}>
+              <Button
+                text={passwordLoading ? 'Mise à jour...' : 'Changer le mot de passe'}
+                type='submit'
+                isLoading={passwordLoading}
+                style={{ width: 'auto', minWidth: '220px' }}
+              />
+            </div>
+          </form>
+        </div>
+
+        <div className='logout-card' onClick={handleLogout}>
+          <div className="logout-content">
             <div className='icon-box red'>
               <i className='bi bi-box-arrow-right'></i>
             </div>
             <span>Déconnexion</span>
           </div>
+          <i className="bi bi-chevron-right logout-arrow"></i>
         </div>
       </main>
       <Footer />
