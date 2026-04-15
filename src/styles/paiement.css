@@ -1,0 +1,396 @@
+.paiement-page {
+  min-height: 100vh;
+  background-color: #f0efe9;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.paiement-device {
+  width: 100%;
+  max-width: 380px;
+  background: #f7f6f2;
+  border-radius: 0;
+  padding: 18px 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: none;
+  min-height: 100vh;
+}
+
+.paiement-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.paiement-topbar h1 {
+  margin: 0;
+  font-size: 37px;
+  color: var(--primary-color);
+  font-weight: 800;
+}
+
+.menu-icon-btn {
+  border: none;
+  background: transparent;
+  color: #625d52;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.trip-summary-card {
+  position: relative;
+  background: #f7f7f7;
+  border: 1px solid #eaeaea;
+  border-radius: 16px;
+  padding: 16px 14px 14px;
+}
+
+.trip-summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.trip-label {
+  margin: 0;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  color: #575757;
+  font-weight: 700;
+}
+
+.trip-title {
+  margin: 11px 0 0;
+  font-size: 14px;
+}
+
+.trip-price {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.trip-route {
+  margin-top: 8px;
+}
+
+.trip-route p {
+  margin: 0 0 2px;
+  font-size: 14px;
+  color: #2a2a2a;
+}
+
+.route-bullet {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.route-bullet.start {
+  background: #141414;
+}
+
+.route-bullet.end {
+  background: var(--primary-color);
+}
+
+.live-status {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+  background: #ece6d8;
+  border-radius: 9px;
+  padding: 6px 9px;
+  color: #282828;
+}
+
+.paiement-block h2 {
+  margin: 0 0 10px;
+  font-size: 36px;
+  letter-spacing: -0.3px;
+}
+
+.operator-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.operator-card {
+  border: 1px solid #eceae5;
+  border-radius: 14px;
+  background: #f2f1ed;
+  padding: 9px 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-family);
+  min-height: 108px;
+}
+
+.operator-card.active {
+  border: 2px solid var(--primary-color);
+  background: #f7f7f4;
+}
+
+.operator-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.operator-logo.airtel {
+  background: #d50e0e;
+}
+
+.operator-logo.mpesa {
+  background: #f33535;
+}
+
+.operator-logo.orange {
+  background: #ff8a00;
+}
+
+.operator-name {
+  font-size: 10px;
+  color: #3f3f3f;
+}
+
+.paiement-block .input-group-custom {
+  margin-bottom: 0;
+}
+
+.paiement-block .input-wrapper {
+  border: none;
+  background: #dfddd8;
+  border-radius: 12px;
+  min-height: 68px;
+}
+
+.paiement-block .input-wrapper:focus-within {
+  background: #e9e7e3;
+  box-shadow: 0 0 0 3px rgba(255, 184, 0, 0.18);
+}
+
+.paiement-block .prefix-text {
+  color: #252525;
+  font-weight: 800;
+}
+
+.paiement-block .input-field {
+  font-size: 20px;
+  font-weight: 700;
+  color: #c2b9ac;
+  letter-spacing: 0;
+}
+
+.input-helper {
+  margin: 8px 0 0;
+  font-size: 9px;
+  color: #5f5a53;
+  line-height: 1.45;
+}
+
+.payment-security {
+  background: #efeeea;
+  border-radius: 12px;
+  padding: 12px 12px;
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+}
+
+.payment-security i {
+  color: var(--text-main);
+  font-size: 20px;
+}
+
+.payment-security h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.payment-security p {
+  margin: 4px 0 0;
+  font-size: 10px;
+  color: #484848;
+  line-height: 1.35;
+}
+
+.pay-btn {
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  font-size: 14px !important;
+  padding: 14px !important;
+}
+
+.payment-submit::after {
+  content: "›";
+  margin-left: 10px;
+  font-size: 18px;
+  line-height: 0;
+}
+
+.state-switch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f4f5f7;
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+.state-switch label {
+  font-size: 12px;
+  color: #4a5160;
+}
+
+.state-switch input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary-color);
+}
+
+.payment-result-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 10px 8px;
+}
+
+.result-icon {
+  width: 62px;
+  height: 62px;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.result-icon.success {
+  background: #fff3d2;
+  color: #efaf00;
+}
+
+.result-icon.failed {
+  background: #f7d9d9;
+  color: #d34e4e;
+}
+
+.payment-result-card h2 {
+  margin: 0;
+  font-size: 39px;
+  letter-spacing: -0.6px;
+}
+
+.result-subtitle {
+  margin: 0;
+  color: #626b78;
+  font-size: 24px;
+  line-height: 1.35;
+}
+
+.result-details {
+  background: #f1f2f4;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.result-amount-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dbdee3;
+  padding-bottom: 10px;
+  margin-bottom: 8px;
+}
+
+.result-amount-row span {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #5c6473;
+}
+
+.result-amount-row strong {
+  font-size: 34px;
+  color: #eeac00;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+
+.result-row:last-child {
+  margin-bottom: 0;
+}
+
+.result-row span {
+  color: #5e6470;
+}
+
+.result-row strong {
+  color: #2f3744;
+  font-size: 12px;
+}
+
+.secondary-action-btn {
+  margin-top: -2px;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+
+.error-card {
+  background: #f1f2f4;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: left;
+}
+
+.error-card h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #3e4654;
+}
+
+.error-card p {
+  margin: 0;
+  color: #676f7d;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.support-link-btn {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 700;
+  color: #2f3642;
+  cursor: pointer;
+}

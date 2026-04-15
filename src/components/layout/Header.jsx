@@ -13,6 +13,7 @@ const Header = () => {
     { name: "Trajet", path: "/trajet" },
     { name: "Historique", path: "/historique" },
     { name: "Profile", path: "/profile" },
+    { name:"Paiement",path:"/paiement"},
   ];
 
   const toggleMenu = () => {
