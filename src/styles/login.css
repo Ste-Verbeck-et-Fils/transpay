@@ -35,7 +35,8 @@ a {
 }
 
 @media (max-width: 768px) {
-  body {
-    zoom: 100%;
+  .login-section {
+    background-color: white;
+    box-shadow: none;
   }
 }
