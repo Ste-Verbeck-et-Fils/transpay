@@ -1,22 +1,17 @@
 .paiement-page {
-  min-height: 100vh;
-  background-color: #f0efe9;
   display: flex;
-  justify-content: center;
-  padding: 0;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f3f6f9;
 }
 
 .paiement-device {
   width: 100%;
-  max-width: 380px;
   background: #f7f6f2;
-  border-radius: 0;
-  padding: 18px 8px 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  box-shadow: none;
-  min-height: 100vh;
+  gap: 2rem;
+  padding: 3rem 3rem;
 }
 
 .paiement-topbar {
@@ -26,10 +21,8 @@
 }
 
 .paiement-topbar h1 {
-  margin: 0;
   font-size: 37px;
   color: var(--primary-color);
-  font-weight: 800;
 }
 
 .menu-icon-btn {
@@ -44,7 +37,7 @@
   position: relative;
   background: #f7f7f7;
   border: 1px solid #eaeaea;
-  border-radius: 16px;
+  border-radius: 1.2rem;
   padding: 16px 14px 14px;
 }
 
@@ -52,50 +45,36 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 12px;
+  padding: 0.1rem;
+  border-bottom: 1px solid color-mix(in srgb, #6b7280 , transparent 90%);
 }
 
 .trip-label {
-  margin: 0;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1.3px;
-  color: #575757;
+  font-size: 1rem;
+  color: var(--error-b);
   font-weight: 700;
 }
 
-.trip-title {
-  margin: 11px 0 0;
-  font-size: 14px;
-}
-
 .trip-price {
-  font-size: 17px;
+  font-size: 2em;
   font-weight: 800;
-  line-height: 1;
-  margin-top: 2px;
+  color: black;
 }
 
 .trip-route {
   margin-top: 8px;
 }
 
-.trip-route p {
-  margin: 0 0 2px;
-  font-size: 14px;
-  color: #2a2a2a;
-}
 
 .route-bullet {
-  width: 5px;
-  height: 5px;
+  width: 0.6rem;
+  height: 0.6rem;
   border-radius: 50%;
   display: inline-block;
   margin-right: 6px;
 }
-
 .route-bullet.start {
-  background: #141414;
+  border: 1px solid #ffb800 ;
 }
 
 .route-bullet.end {
@@ -106,8 +85,7 @@
   position: absolute;
   right: 12px;
   bottom: 12px;
-  font-size: 10px;
-  text-transform: uppercase;
+  font-size: 1rem;
   font-weight: 700;
   background: #ece6d8;
   border-radius: 9px;
@@ -117,28 +95,24 @@
 
 .paiement-block h2 {
   margin: 0 0 10px;
-  font-size: 36px;
-  letter-spacing: -0.3px;
+  font-size: 2rem;
 }
 
 .operator-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .operator-card {
   border: 1px solid #eceae5;
   border-radius: 14px;
   background: #f2f1ed;
-  padding: 9px 6px;
+  padding: 1rem 0.5rem;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 7px;
-  font-family: var(--font-family);
-  min-height: 108px;
 }
 
 .operator-card.active {
@@ -147,14 +121,14 @@
 }
 
 .operator-logo {
-  width: 40px;
-  height: 40px;
+  width: 90px;
+  height: 90px;
   border-radius: 10px;
   color: #fff;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 1rem;
   font-weight: 700;
   margin-top: 6px;
 }
@@ -172,8 +146,9 @@
 }
 
 .operator-name {
-  font-size: 10px;
-  color: #3f3f3f;
+  font-size: 1rem;
+  font-weight: 700;
+  color:var(--text-muted);
 }
 
 .paiement-block .input-group-custom {
@@ -206,7 +181,7 @@
 
 .input-helper {
   margin: 8px 0 0;
-  font-size: 9px;
+  font-size: 1.1rem;
   color: #5f5a53;
   line-height: 1.45;
 }
@@ -222,17 +197,17 @@
 
 .payment-security i {
   color: var(--text-main);
-  font-size: 20px;
+  font-size: 1.4rem;
 }
 
 .payment-security h3 {
   margin: 0;
-  font-size: 16px;
+  font-size: 1.4rem;
 }
 
 .payment-security p {
   margin: 4px 0 0;
-  font-size: 10px;
+  font-size: 1rem;
   color: #484848;
   line-height: 1.35;
 }
@@ -240,15 +215,17 @@
 .pay-btn {
   border-radius: 12px !important;
   box-shadow: none !important;
-  font-size: 14px !important;
-  padding: 14px !important;
+  font-size: 2rem !important;
+  padding: 1.4rem !important;
 }
 
 .payment-submit::after {
   content: "›";
   margin-left: 10px;
-  font-size: 18px;
+  font-size: 2rem;
   line-height: 0;
+  padding: 1rem ;
+
 }
 
 .state-switch {
@@ -261,7 +238,7 @@
 }
 
 .state-switch label {
-  font-size: 12px;
+  font-size: 1.3rem;
   color: #4a5160;
 }
 

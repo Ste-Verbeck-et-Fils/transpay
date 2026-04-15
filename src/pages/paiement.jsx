@@ -23,8 +23,7 @@ const TripSummary = () => (
   <article className="trip-summary-card">
     <header className="trip-summary-header">
       <div>
-        <p className="trip-label">Details du trajet</p>
-        <h3 className="trip-title">Rond-Point BDGL</h3>
+        <p className="trip-label">DETAILS DU TRAJET</p>
       </div>
       <div className="trip-price">{busDetails.amount}</div>
     </header>
@@ -36,7 +35,7 @@ const TripSummary = () => (
         <span className="route-bullet end"></span>A <strong>Birere</strong>
       </p>
     </div>
-    <span className="live-status">En direct</span>
+    <span className="live-status">EN DIRECT</span>
   </article>
 );
 
@@ -151,7 +150,7 @@ function Paiement() {
             <TripSummary />
 
             <section className="paiement-block">
-              <h2>Choisir l&apos;operateur</h2>
+              <h2>Choisir l'opérateur</h2>
               <div className="operator-list">
                 {operators.map((operator) => (
                   <OperatorCard
@@ -165,7 +164,7 @@ function Paiement() {
             </section>
 
             <section className="paiement-block">
-              <h2>Numero Mobile Money</h2>
+              <h2>Numéro Mobile Money</h2>
               <Input
                 isPhone={true}
                 type="tel"
