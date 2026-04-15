@@ -1,3 +1,4 @@
+import Header from "../components/layout/Header";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/ui/Input";
@@ -129,6 +130,7 @@ function Paiement() {
 
   return (
     <section className="paiement-page">
+      <Header/>
       <div className="paiement-device">
         {paymentState === "success" ? (
           <PaymentResultSuccess
