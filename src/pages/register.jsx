@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import "../styles/register.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 function Register() {
   const navigate = useNavigate();
@@ -43,13 +43,37 @@ function Register() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
       setIsLoading(true);
-      setTimeout(() => {
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nom_complet: formData.name,
+            telephone: formData.phone,
+            motdepasse: formData.password,
+          }),
+        });
+        const data = await response.json();
+        if (data.success) {
+          // Store token
+          localStorage.setItem('token', data.data.token);
+          localStorage.setItem('user', JSON.stringify(data.data.user));
+          // Navigate to home or profile
+          navigate('/profile');
+        } else {
+          setErrors({ general: data.message });
+        }
+      } catch (error) {
+        setErrors({ general: 'Erreur de connexion au serveur' });
+      } finally {
         setIsLoading(false);
-      }, 1500);
+      }
     }
   };
 

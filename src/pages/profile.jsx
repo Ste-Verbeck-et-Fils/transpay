@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import "../styles/profile.css";
@@ -8,15 +8,77 @@ import "../styles/profile.css";
 import taxiChauffeur from "../assets/images/taxichauffeur.png";
 
 const Profile = () => {
-  const userData = {
-    name: "Jean-Paul Goma",
-    phone: "+243 812 345 678",
-    trajets: "128",
-    eco: "15.5k",
-    points: "2.4k",
-    identite: "J.P. Goma",
-    membre: "Jan. 2023",
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:5000/api/profile', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        if (data.success) {
+          setUserData({
+            name: data.user.nom_complet,
+            phone: data.user.telephone,
+            trajets: "128", // These could be fetched separately
+            eco: "15.5k",
+            points: "2.4k",
+            identite: data.user.nom_complet.split(' ').map(n => n[0]).join('. '),
+            membre: "Jan. 2023", // Could be from user data
+          });
+        } else {
+          setError(data.message);
+        }
+      } catch (err) {
+        setError('Erreur de chargement du profil');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, [navigate]);
+
+  const handleLogout = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      await fetch('http://localhost:5000/api/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      // Ignore logout error
+    }
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
   };
+
+  if (loading) {
+    return <div>Chargement...</div>;
+  }
+
+  if (error) {
+    return <div>Erreur: {error}</div>;
+  }
+
+  if (!userData) {
+    return <div>Utilisateur non trouvé</div>;
+  }
 
   return (
     <div className="profile-container">
@@ -130,7 +192,7 @@ const Profile = () => {
 
         {/* Logout */}
         <div className="logout-section">
-          <div className="logout-btn">
+          <div className="logout-btn" onClick={handleLogout}>
             <div className="icon-box red">
               <i className="bi bi-box-arrow-right"></i>
             </div>
