@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import "../styles/trajet.css";
+import { useNavigate } from "react-router-dom";
 
 const Trajet = () => {
+  const navigate = useNavigate();
   const [trajets, setTrajets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -127,7 +129,12 @@ const Trajet = () => {
                     <i className="bi bi-clock"></i>
                     <span>Toutes les {t.duree_estimee}</span>
                   </div>
-                  <button className="btn-choisir">Choisir</button>
+                  <button 
+                    className="btn-choisir" 
+                    onClick={() => navigate("/scan", { state: { trajet: t } })}
+                  >
+                    Choisir
+                  </button>
                 </div>
               </div>
             ))}
