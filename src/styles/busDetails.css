@@ -285,7 +285,47 @@
 }
 
 @media (min-width: 1024px) {
+  .details-main {
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+  }
+
   .details-content {
-    padding-top: 100px;
+    padding-top: 60px;
+    max-width: 1000px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "summary info"
+      "driver  info"
+      "button  .";
+    gap: 30px 60px;
+    align-items: start;
+  }
+
+  .trajet-summary-card {
+    grid-area: summary;
+    margin-bottom: 0;
+  }
+
+  .info-cards-group {
+    grid-area: info;
+    margin-bottom: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .chauffeur-card {
+    grid-area: driver;
+    margin-bottom: 0;
+  }
+
+  .btn-pay {
+    grid-area: button;
+    margin-bottom: 0;
   }
 }
