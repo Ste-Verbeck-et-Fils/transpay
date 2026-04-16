@@ -102,6 +102,8 @@ function Paiement() {
   const [selectedOperator, setSelectedOperator] = useState("airtel");
   const [phone, setPhone] = useState("");
   const [createdPaiementId, setCreatedPaiementId] = useState(null);
+  const [txnDate, setTxnDate] = useState("");
+  const [txnRef, setTxnRef] = useState("");
 
   // Fallback data
   const displayTrajet = trajet || {
@@ -139,6 +141,16 @@ function Paiement() {
 
       const pId = payRes.data.data.id;
       setCreatedPaiementId(pId);
+      
+      const formattedDate = new Date().toLocaleDateString('fr-FR', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      setTxnDate(formattedDate);
+      setTxnRef(`TXN-${new Date().getFullYear()}-${pId.toString().padStart(4, '0')}`);
 
       // 2. Wait a bit for "experience"
       await new Promise(resolve => setTimeout(resolve, 1500));
@@ -149,9 +161,6 @@ function Paiement() {
       setStep("failed");
     }
   };
-
-  const transactionDate = "24 Oct 2024, 14:30"; // Matching mockup for visual consistency
-  const reference = "TXN-GOMA-2024-001";
 
   if (step === "details") {
     return (
@@ -330,8 +339,8 @@ function Paiement() {
         ) : step === "success" ? (
           <PaymentResultSuccess 
             amount={displayTrajet.prix} 
-            reference={reference} 
-            date={transactionDate} 
+            reference={txnRef} 
+            date={txnDate} 
             onTicket={() => navigate("/ticket", { state: { paiement_id: createdPaiementId } })}
             onBack={() => navigate("/home")}
           />

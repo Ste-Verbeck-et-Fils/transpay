@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { QRCodeCanvas } from "qrcode.react";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import "../styles/ticket.css";
@@ -13,38 +15,32 @@ const Ticket = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Get data from navigation state (reference or paiement_id)
   const { paiement_id, reference } = location.state || {};
 
   useEffect(() => {
-    // In a real app, we would use the real paiement_id.
-    // Here we simulate the generation if we have a reference or we are coming from payment.
     const fetchOrCreateTicket = async () => {
       try {
         setLoading(true);
-        
-        // We simulate getting the paiement_id 18 from the user request example if none provided
-        const targetPaiementId = paiement_id || 18; 
-        
+
+        const targetPaiementId = paiement_id || 18;
+
         const token = localStorage.getItem("token");
         const config = {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         };
 
-        // Attempt to generate the ticket
         try {
           const response = await axios.post(
             "http://localhost:5000/api/tickets/generate",
             { paiement_id: targetPaiementId },
-            config
+            config,
           );
           setTicket(response.data.data);
         } catch (err) {
-          // If already exists, fetch it
           if (err.response && err.response.status === 400) {
             const fetchResponse = await axios.get(
               `http://localhost:5000/api/tickets/paiement/${targetPaiementId}`,
-              config
+              config,
             );
             setTicket(fetchResponse.data.data);
           } else {
@@ -53,7 +49,9 @@ const Ticket = () => {
         }
       } catch (err) {
         console.error("Error fetching ticket:", err);
-        setError("Impossible de charger le ticket. Veuillez vérifier votre connexion.");
+        setError(
+          "Impossible de charger le ticket. Veuillez vérifier votre connexion.",
+        );
       } finally {
         setLoading(false);
       }
@@ -83,37 +81,61 @@ const Ticket = () => {
           <i className="bi bi-exclamation-triangle"></i>
           <h2>Oups !</h2>
           <p>{error || "Ticket introuvable."}</p>
-          <button className="btn-pdf" onClick={() => navigate("/home")}>Retour à l'accueil</button>
+          <button className="btn-pdf" onClick={() => navigate("/home")}>
+            Retour à l'accueil
+          </button>
         </div>
         <Footer />
       </section>
     );
   }
 
-  // Format date
   const dateGen = new Date(ticket.date_generation);
-  const formattedDate = dateGen.toLocaleDateString('fr-FR', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric'
+  const formattedDate = dateGen.toLocaleDateString("fr-FR", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
   });
-  const formattedTime = dateGen.toLocaleTimeString('fr-FR', {
-    hour: '2-digit',
-    minute: '2-digit'
+  const formattedTime = dateGen.toLocaleTimeString("fr-FR", {
+    hour: "2-digit",
+    minute: "2-digit",
   });
 
-  // Get initials for avatar
   const initials = ticket.nom_complet
-    ? ticket.nom_complet.split(" ").map(n => n[0]).join("").toUpperCase().substring(0, 2)
+    ? ticket.nom_complet
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .substring(0, 2)
     : "TP";
+
+  const handleDownloadPDF = async () => {
+    const element = document.getElementById("ticket-to-print");
+    if (!element) return;
+
+    try {
+      const canvas = await html2canvas(element, { scale: 2, useCORS: true });
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`Ticket_TransPay_${ticket.code_ticket.split("|").pop()}.pdf`);
+    } catch (err) {
+      console.error("Erreur lors de la création du PDF :", err);
+      alert("Erreur lors de la création du PDF.");
+    }
+  };
 
   return (
     <section className="ticket-page">
       <Header />
-      
-      <div className="ticket-container">
-        {/* Main Ticket Card */}
-        <div className="ticket-card">
+
+      <div className="ticket-container" id="ticket-to-print">
+        <div className="ticket-card main-card">
           <div className="ticket-header-info">
             <div className="route-info">
               <div className="point">
@@ -123,9 +145,14 @@ const Ticket = () => {
               <div className="route-arrow">
                 <i className="bi bi-arrow-right"></i>
               </div>
-              <div className="point" style={{ textAlign: 'right', marginLeft: 'auto' }}>
+              <div
+                className="point"
+                style={{ textAlign: "right", marginLeft: "auto" }}
+              >
                 <span className="label">À</span>
-                <span className="value">{ticket.point_arrivee.split(',')[0]}</span>
+                <span className="value">
+                  {ticket.point_arrivee.split(",")[0]}
+                </span>
               </div>
             </div>
           </div>
@@ -137,13 +164,13 @@ const Ticket = () => {
 
           <div className="qr-section">
             <div className="qr-wrapper">
-              <QRCodeCanvas 
-                value={ticket.code_ticket} 
+              <QRCodeCanvas
+                value={ticket.code_ticket}
                 size={200}
                 level={"H"}
                 includeMargin={true}
                 imageSettings={{
-                  src: "/favicon.ico", // Using favicon as placeholder for avatar in center if needed
+                  src: "/favicon.ico",
                   x: undefined,
                   y: undefined,
                   height: 40,
@@ -152,15 +179,12 @@ const Ticket = () => {
                 }}
               />
             </div>
-            <div className="ticket-id-display">
-              TKT - {ticket.code_ticket.split('|').pop()}
-            </div>
+            <div className="ticket-id-display">{ticket.code_ticket}</div>
           </div>
         </div>
 
         <div className="dashed-divider"></div>
 
-        {/* Details Card */}
         <div className="ticket-card ticket-details-card">
           <div className="details-grid">
             <div className="detail-item">
@@ -176,7 +200,10 @@ const Ticket = () => {
           <div className="price-row">
             <span className="label">Prix</span>
             <span className="value">
-              {Number(ticket.montant || 1500).toLocaleString('fr-FR')} <span className="unit">CDF</span>
+              {ticket.montant
+                ? Number(ticket.montant).toLocaleString("fr-FR")
+                : "N/A"}{" "}
+              <span className="unit">CDF</span>
             </span>
           </div>
 
@@ -185,11 +212,8 @@ const Ticket = () => {
             <p>Valable pour un trajet unique. Présentez le code à la montée.</p>
           </div>
 
-          <div className="ticket-actions">
-            <button className="btn-share">
-              <i className="bi bi-share"></i> Partager le ticket
-            </button>
-            <button className="btn-pdf">
+          <div className="ticket-actions" data-html2canvas-ignore="true">
+            <button className="btn-pdf" onClick={handleDownloadPDF}>
               <i className="bi bi-download"></i> Enregistrer en PDF
             </button>
           </div>
