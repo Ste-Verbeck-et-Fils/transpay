@@ -273,3 +273,52 @@
   font-size: 48px;
   color: #fa5252;
 }
+
+@media (min-width: 1024px) {
+  .ticket-container {
+    max-width: 850px;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0;
+    margin: 80px auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .ticket-card {
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+  }
+  
+  .main-card {
+    flex: 1.2;
+    border-radius: 20px 0 0 20px;
+  }
+
+  .ticket-details-card {
+    flex: 1;
+    border-radius: 0 20px 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .dashed-divider {
+    width: 2px;
+    height: auto;
+    border-top: none;
+    border-left: 2px dashed #f1f3f5;
+    background: transparent;
+  }
+
+  .dashed-divider::before, 
+  .dashed-divider::after {
+    left: -9px;
+    right: auto;
+  }
+
+  .dashed-divider::before { top: -10px; }
+  .dashed-divider::after { top: auto; bottom: -10px; }
+}
