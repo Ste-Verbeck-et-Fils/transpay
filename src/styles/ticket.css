@@ -1,0 +1,275 @@
+.ticket-page {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+.ticket-container {
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ticket-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+}
+
+.ticket-header-info {
+  background: #f1f3f5;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.route-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.point {
+  display: flex;
+  flex-direction: column;
+}
+
+.point .label {
+  font-size: 10px;
+  color: #868e96;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.point .value {
+  font-size: 16px;
+  font-weight: 800;
+  color: #343a40;
+}
+
+.route-arrow {
+  color: #ced4da;
+  font-size: 20px;
+}
+
+.user-info-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.user-avatar-circle {
+  width: 40px;
+  height: 40px;
+  background: #ffb800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.user-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #343a40;
+}
+
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px 25px;
+}
+
+.qr-wrapper {
+  padding: 15px;
+  background: #fff;
+  border: 1px solid #fff9db;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(255, 184, 0, 0.08);
+}
+
+.ticket-id-display {
+  margin-top: 15px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  color: #868e96;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+/* Secondary Card Padding & Layout */
+.ticket-details-card {
+  padding: 25px;
+}
+
+.dashed-divider {
+  border-top: 2px dashed #f1f3f5;
+  margin: 0;
+  position: relative;
+}
+
+.dashed-divider::before, 
+.dashed-divider::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  width: 20px;
+  height: 20px;
+  background: #f8f9fa;
+  border-radius: 50%;
+}
+
+.dashed-divider::before { left: -10px; }
+.dashed-divider::after { right: -10px; }
+
+.details-grid {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-item.right {
+  align-items: flex-end;
+}
+
+.detail-item .label {
+  font-size: 12px;
+  color: #adb5bd;
+  margin-bottom: 4px;
+}
+
+.detail-item .value {
+  font-size: 15px;
+  font-weight: 700;
+  color: #212529;
+}
+
+.price-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.price-row .label {
+  font-size: 12px;
+  color: #adb5bd;
+}
+
+.price-row .value {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffb800;
+}
+
+.price-row .unit {
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+.info-alert {
+  background: #fff;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border-top: 1px solid #f8f9fa;
+  padding-top: 20px;
+  margin-bottom: 25px;
+}
+
+.info-alert i {
+  color: #ffb800;
+  font-size: 18px;
+}
+
+.info-alert p {
+  font-size: 12px;
+  color: #868e96;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.ticket-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-share {
+  background: white;
+  border: 1.5px solid #ffb800;
+  color: #ffb800;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-pdf {
+  background: #ffb800;
+  border: none;
+  color: white;
+  padding: 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 184, 0, 0.3);
+  transition: all 0.2s;
+}
+
+.btn-pdf:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 184, 0, 0.4);
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+  gap: 20px;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+  text-align: center;
+  gap: 15px;
+}
+
+.bi-exclamation-triangle {
+  font-size: 48px;
+  color: #fa5252;
+}

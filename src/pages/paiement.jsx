@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import Input from "../components/ui/Input";
@@ -100,6 +101,7 @@ function Paiement() {
   const [step, setStep] = useState(location.state?.autoStart ? "form" : "details");
   const [selectedOperator, setSelectedOperator] = useState("airtel");
   const [phone, setPhone] = useState("");
+  const [createdPaiementId, setCreatedPaiementId] = useState(null);
 
   // Fallback data
   const displayTrajet = trajet || {
@@ -117,13 +119,35 @@ function Paiement() {
 
   const canSubmit = phone.replace(/\D/g, "").length >= 9;
 
-  const handleConfirmPayment = () => {
+  const handleConfirmPayment = async () => {
     if (!canSubmit) return;
     setStep("loading");
-    setTimeout(() => {
-      const isSuccess = Math.random() >= 0.2;
-      setStep(isSuccess ? "success" : "failed");
-    }, 2500);
+    
+    try {
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+      };
+
+      // 1. Create payment in DB
+      const payRes = await axios.post("http://localhost:5000/api/paiements", {
+        trajet_id: displayTrajet.id || 1,
+        bus_id: displayBus.id || 1,
+        montant: displayTrajet.prix,
+        moyen_paiement: selectedOperator === "airtel" ? "airtel_money" : "m_pesa"
+      }, config);
+
+      const pId = payRes.data.data.id;
+      setCreatedPaiementId(pId);
+
+      // 2. Wait a bit for "experience"
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      setStep("success");
+    } catch (err) {
+      console.error("Payment error:", err);
+      setStep("failed");
+    }
   };
 
   const transactionDate = "24 Oct 2024, 14:30"; // Matching mockup for visual consistency
@@ -308,7 +332,7 @@ function Paiement() {
             amount={displayTrajet.prix} 
             reference={reference} 
             date={transactionDate} 
-            onTicket={() => navigate("/ticket", { state: { bus: displayBus, trajet: displayTrajet, reference, date: transactionDate } })}
+            onTicket={() => navigate("/ticket", { state: { paiement_id: createdPaiementId } })}
             onBack={() => navigate("/home")}
           />
         ) : (
