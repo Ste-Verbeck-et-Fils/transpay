@@ -371,7 +371,7 @@
   color: #ffb800;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .paiement-container {
     max-width: 1100px;
     display: flex;

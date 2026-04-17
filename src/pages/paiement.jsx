@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/layout/Header";
@@ -61,6 +61,12 @@ function Paiement() {
   const [createdPaiementId, setCreatedPaiementId] = useState(null);
   const [txnDate, setTxnDate] = useState("");
   const [txnRef, setTxnRef] = useState("");
+
+  useEffect(() => {
+    if (!location.state || !location.state.trajet || !location.state.bus) {
+      navigate('/trajet', { replace: true });
+    }
+  }, [location.state, navigate]);
 
   // Fallback data
   const displayTrajet = trajet || {
