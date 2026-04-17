@@ -41,6 +41,15 @@ const Header = () => {
     ];
   }
 
+  if (userRole === "admin") {
+    navLinks = [
+      { name: "Dashboard", path: "/admin" },
+      { name: "Trajets", path: "/admin/trajets" },
+      { name: "Bus", path: "/admin/bus" },
+      { name: "Profile", path: "/profile" },
+    ];
+  }
+
   const handleAuthAction = () => {
     if (isLoggedIn) {
       localStorage.removeItem('token');

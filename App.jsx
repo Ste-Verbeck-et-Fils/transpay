@@ -9,6 +9,11 @@ import Paiement from "./src/pages/paiement";
 import Scan from "./src/pages/scan";
 import Ticket from "./src/pages/ticket";
 import Verify from "./src/pages/verify";
+import AdminDashboard from "./src/pages/admin/AdminDashboard";
+import AdminTrajets from "./src/pages/admin/AdminTrajets";
+import AdminBus from "./src/pages/admin/AdminBus";
+import AdminPaiements from "./src/pages/admin/AdminPaiements";
+import AdminTickets from "./src/pages/admin/AdminTickets";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./index.css";
 
@@ -22,6 +27,9 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   if (allowedRoles && !allowedRoles.includes(user.role)) {
     if (user.role === "controleur") {
       return <Navigate to="/verify" state={{ unauthorized: true }} replace />;
+    }
+    if (user.role === "admin") {
+      return <Navigate to="/admin" state={{ unauthorized: true }} replace />;
     }
     return <Navigate to="/home" state={{ unauthorized: true }} replace />;
   }
@@ -45,6 +53,11 @@ const App = () => {
           <Route path="/scan" element={<ProtectedRoute allowedRoles={["passager"]}><Scan /></ProtectedRoute>} />
           <Route path="/ticket" element={<ProtectedRoute allowedRoles={["passager"]}><Ticket /></ProtectedRoute>} />
           <Route path="/verify" element={<ProtectedRoute allowedRoles={["controleur"]}><Verify /></ProtectedRoute>} />
+          <Route path="/admin" element={<ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/admin/trajets" element={<ProtectedRoute allowedRoles={["admin"]}><AdminTrajets /></ProtectedRoute>} />
+          <Route path="/admin/bus" element={<ProtectedRoute allowedRoles={["admin"]}><AdminBus /></ProtectedRoute>} />
+          <Route path="/admin/paiements" element={<ProtectedRoute allowedRoles={["admin"]}><AdminPaiements /></ProtectedRoute>} />
+          <Route path="/admin/tickets" element={<ProtectedRoute allowedRoles={["admin"]}><AdminTickets /></ProtectedRoute>} />
         </Routes>
       </main>
     </BrowserRouter>
