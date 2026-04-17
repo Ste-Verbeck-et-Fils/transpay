@@ -2,6 +2,8 @@ import React from "react";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import Button from "../components/ui/Button";
+import Feedback from "../components/ui/Feedback";
+import { useLocation } from "react-router-dom";
 import "../styles/home.css";
 
 import busHero from "../assets/images/bus.png";
@@ -10,9 +12,18 @@ import mapRDC from "../assets/images/carte_rdc.png";
 import scanBus from "../assets/images/scan_bus.png";
 
 const Home = () => {
+  const location = useLocation();
+  const { unauthorized } = location.state || {};
+
   return (
     <div className="home-container">
       <Header />
+
+      {unauthorized && (
+        <div style={{ position: 'fixed', top: '80px', left: '50%', transform: 'translateX(-50%)', zIndex: 9999, width: '90%', maxWidth: '400px' }}>
+          <Feedback type="error" title="Accès refusé" message="Vous n'êtes pas autorisé à accéder à cette page." duration={5000} />
+        </div>
+      )}
 
       <main className="home-main">
         <section

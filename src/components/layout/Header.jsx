@@ -6,25 +6,41 @@ import { useNavigate, useLocation, Link } from "react-router";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Trajet", path: "/trajet" },
-    { name: "Historique", path: "/historique" },
-    { name: "Profile", path: "/profile" },
-    { name:"Paiement",path:"/paiement"},
-  ];
+  useEffect(() => {
+    setIsMenuOpen(false);
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+    const userStr = localStorage.getItem('user');
+    if (userStr) {
+      setUserRole(JSON.parse(userStr).role);
+    } else {
+      setUserRole(null);
+    }
+  }, [location]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  useEffect(() => {
-    setIsMenuOpen(false);
-    setIsLoggedIn(!!localStorage.getItem('token'));
-  }, [location]);
+  let navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Trajet", path: "/trajet" },
+    { name: "Historique", path: "/historique" },
+    { name: "Profile", path: "/profile" },
+    { name: "Paiement", path: "/paiement"},
+  ];
+
+  if (userRole === "controleur") {
+    navLinks = [
+      { name: "Home", path: "/" },
+      { name: "Vérification", path: "/verify" },
+      { name: "Profile", path: "/profile" },
+    ];
+  }
 
   const handleAuthAction = () => {
     if (isLoggedIn) {

@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+import Feedback from "../components/ui/Feedback";
 import "../styles/verify.css";
 import scanBusImg from "../assets/images/scan_bus.png";
 
 const Verify = () => {
+  const location = useLocation();
+  const { unauthorized } = location.state || {};
+
   const [ticketCode, setTicketCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState(null);
@@ -75,6 +80,12 @@ const Verify = () => {
   return (
     <div className="scan-page">
       <Header />
+
+      {unauthorized && (
+        <div style={{ position: 'fixed', top: '80px', left: '50%', transform: 'translateX(-50%)', zIndex: 9999, width: '90%', maxWidth: '400px' }}>
+          <Feedback type="error" title="Accès refusé" message="Vous n'êtes pas autorisé à accéder à cette page." duration={5000} />
+        </div>
+      )}
 
       <main className="scan-container">
         <header className="scan-header">
