@@ -19,49 +19,6 @@ const operators = [
   { id: "orange", name: "Orange", logo: orangeLogo, color: "#ff8a00" },
 ];
 
-const PaymentResultSuccess = ({ amount, reference, date, onTicket, onBack }) => (
-  <article className="payment-result-card success-view">
-    <div className="result-icon success">
-      <div className="icon-circle">
-        <i className="bi bi-check-lg"></i>
-      </div>
-    </div>
-    <div className="result-header">
-      <h2>Paiement réussi !</h2>
-      <p className="result-subtitle">Votre transaction a été traitée avec succès dans le réseau TransPay Goma.</p>
-    </div>
-
-    <div className="result-details">
-      <div className="result-amount-row">
-        <span>MONTANT PAYÉ</span>
-        <strong className="amount-gold">{Math.floor(amount)} <span className="currency">CDF</span></strong>
-      </div>
-      <div className="result-details-grid">
-        <div className="result-row">
-          <span>Référence</span>
-          <strong className="ref-pill">{reference}</strong>
-        </div>
-        <div className="result-row">
-          <span>Date & Heure</span>
-          <strong>{date}</strong>
-        </div>
-        <div className="result-row">
-          <span>Méthode</span>
-          <strong className="method-box">
-             <i className="bi bi-wallet2" style={{ color: '#ffb800', marginRight: '6px' }}></i> 
-             Mobile Wallet
-          </strong>
-        </div>
-      </div>
-    </div>
-
-    <div className="result-actions">
-        <Button text="Voir mon ticket" icon="ticket-perforated" className="pay-btn btn-primary-yellow" onClick={onTicket} />
-        <Button text="Retour à l'accueil" variant="secondary" className="secondary-action-btn btn-grey" onClick={onBack} />
-    </div>
-  </article>
-);
-
 const PaymentResultFailed = ({ onRetry, onBack }) => (
   <article className="payment-result-card failed-view">
     <div className="result-icon failed">
@@ -152,10 +109,8 @@ function Paiement() {
       setTxnDate(formattedDate);
       setTxnRef(`TXN-${new Date().getFullYear()}-${pId.toString().padStart(4, '0')}`);
 
-      // 2. Wait a bit for "experience"
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      setStep("success");
+      // Redirect directly to ticket page
+      navigate("/ticket", { state: { paiement_id: pId, showSuccessToast: true } });
     } catch (err) {
       console.error("Payment error:", err);
       setStep("failed");
@@ -336,14 +291,6 @@ function Paiement() {
             <h2>Traitement en cours...</h2>
             <p>Veuillez confirmer la transaction sur votre téléphone.</p>
           </div>
-        ) : step === "success" ? (
-          <PaymentResultSuccess 
-            amount={displayTrajet.prix} 
-            reference={txnRef} 
-            date={txnDate} 
-            onTicket={() => navigate("/ticket", { state: { paiement_id: createdPaiementId } })}
-            onBack={() => navigate("/home")}
-          />
         ) : (
           <PaymentResultFailed 
              onRetry={() => setStep("form")} 
