@@ -6,6 +6,7 @@ import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+import Feedback from "../components/ui/Feedback";
 import "../styles/ticket.css";
 
 const Ticket = () => {
@@ -15,7 +16,7 @@ const Ticket = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { paiement_id, reference } = location.state || {};
+  const { paiement_id, reference, showSuccessToast } = location.state || {};
 
   useEffect(() => {
     const fetchOrCreateTicket = async () => {
@@ -133,6 +134,17 @@ const Ticket = () => {
   return (
     <section className="ticket-page">
       <Header />
+
+      {showSuccessToast && (
+        <div style={{ padding: '0 20px', marginTop: '20px', maxWidth: '600px', margin: '20px auto 0' }}>
+            <Feedback 
+                type="success" 
+                title="Paiement Réussi !" 
+                message="Votre transaction a été traitée avec succès et votre ticket est généré." 
+                duration={5000} 
+            />
+        </div>
+      )}
 
       <div className="ticket-container" id="ticket-to-print">
         <div className="ticket-card main-card">
