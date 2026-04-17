@@ -8,6 +8,7 @@ import Trajet from "./src/pages/trajet";
 import Paiement from "./src/pages/paiement";
 import Scan from "./src/pages/scan";
 import Ticket from "./src/pages/ticket";
+import Verify from "./src/pages/verify";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/paiement" element={<Paiement />} />
           <Route path="/scan" element={<Scan />} />
           <Route path="/ticket" element={<Ticket />} />
+          <Route path="/verify" element={<Verify />} />
         </Routes>
       </main>
     </BrowserRouter>
