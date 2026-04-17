@@ -1,0 +1,144 @@
+.historique-page {
+  background-color: #f9fafb;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.historique-container {
+  flex: 1;
+  padding: 40px 24px;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.historique-header {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.historique-header h1 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.historique-header p {
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.historique-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.paiement-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid #f3f4f6;
+  transition: transform 0.2s;
+}
+
+.paiement-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+}
+
+.paiement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 12px;
+}
+
+.paiement-date {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.paiement-amount {
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffb800;
+}
+
+.paiement-amount .unit {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-left: 4px;
+}
+
+.paiement-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.paiement-route {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: #111827;
+  font-weight: 600;
+}
+
+.paiement-route i {
+  color: #ffb800;
+  font-size: 14px;
+}
+
+.paiement-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.paiement-ref {
+  background: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 12px;
+  color: #374151;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.empty-state i {
+  font-size: 48px;
+  color: #d1d5db;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.empty-state h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.empty-state p {
+  color: #6b7280;
+  font-size: 14px;
+}
