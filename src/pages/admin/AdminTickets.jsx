@@ -3,10 +3,13 @@ import axios from 'axios';
 import Header from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import '../../styles/admin.css';
+import Loading from "../../components/ui/Loading";
+import Feedback from "../../components/ui/Feedback";
 
 const AdminTickets = () => {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [feedback, setFeedback] = useState({ type: "", message: "" });
 
   useEffect(() => {
     fetchTickets();
@@ -23,9 +26,20 @@ const AdminTickets = () => {
       }
     } catch (error) {
       console.error('Erreur fetch tickets', error);
+      setFeedback({ type: "error", message: "Impossible de récupérer les tickets." });
     } finally {
       setLoading(false);
     }
+  };
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   };
 
   return (
@@ -35,41 +49,69 @@ const AdminTickets = () => {
         <div className="admin-header">
           <h2>Consultation des Tickets</h2>
         </div>
-        {loading ? (
-          <p>Chargement...</p>
-        ) : (
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Utilisateur</th>
-                <th>Code Ticket</th>
-                <th>Bus</th>
-                <th>Montant</th>
-                <th>Généré le</th>
-                <th>Expire le</th>
-                <th>Statut</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tickets.map(t => (
-                <tr key={t.ticket_id}>
-                  <td>{t.ticket_id}</td>
-                  <td>{t.utilisateur_nom}</td>
-                  <td>{t.code_ticket}</td>
-                  <td>{t.bus}</td>
-                  <td>{t.montant} CDF</td>
-                  <td>{new Date(t.date_generation).toLocaleString()}</td>
-                  <td>{new Date(t.date_expiration).toLocaleString()}</td>
-                  <td>{t.statut}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+
+        {feedback.message && (
+          <Feedback 
+            type={feedback.type} 
+            message={feedback.message} 
+            onClose={() => setFeedback({ type: "", message: "" })} 
+          />
         )}
+
+        <div className="admin-table-container">
+          {loading ? (
+            <Loading title="Chargement des tickets" description="Récupération de la base de données des titres de transport..." />
+          ) : (
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Client</th>
+                  <th>Code Ticket</th>
+                  <th>Bus</th>
+                  <th>Généré le</th>
+                  <th>Expiration</th>
+                  <th>Statut</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tickets.length > 0 ? tickets.map(t => (
+                  <tr key={t.ticket_id}>
+                    <td>
+                      <strong>{t.utilisateur_nom}</strong>
+                    </td>
+                    <td>
+                      <code style={{fontSize: '14px', color: 'var(--primary-hover)', fontWeight: '700', background: 'rgba(255, 184, 0, 0.05)', padding: '4px 8px', borderRadius: '6px', border: '1px solid rgba(255, 184, 0, 0.2)'}}>
+                        {t.code_ticket}
+                      </code>
+                    </td>
+                    <td>{t.bus}</td>
+                    <td style={{fontSize: '14px'}}>
+                      {formatDate(t.date_generation)}
+                    </td>
+                    <td style={{fontSize: '14px'}}>
+                      {formatDate(t.date_expiration)}
+                    </td>
+                    <td>
+                      <span className={`badge ${t.statut === 'valide' ? 'badge-actif' : 'badge-hors_service'}`}>
+                        {t.statut}
+                      </span>
+                    </td>
+                  </tr>
+                )) : (
+                  <tr>
+                    <td colSpan="6" style={{textAlign: 'center', padding: '40px', color: 'var(--text-muted)'}}>
+                      Aucun ticket généré pour le moment.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
       <Footer />
     </div>
   );
 };
+
 export default AdminTickets;
