@@ -90,12 +90,18 @@ git push origin feature/paiement
 
 ## Dashboard
 
-- Une page de tableau de bord qui contient plusieurs autres pages : gestion des trajets, gestion des bus, consultation des paiements et consultation des tickets.
+- Une page de tableau de bord qui contient les graphiques
   
-<img width="100%" src="./docs/images/dashboard.png" >
+<img width="100%" src="./docs/images/dashboards.png" >
 
 ## Page des trajets 
 
 -une page des trajets qui indique les trajets que les passagers sera entrain de faire le prix a payer,la duree et le statut 
 
-<img width="100%" src="./docs/images/trajet.png">
+<img width="100%" src="./docs/images/trajets.png">
+
+## Page d'ajout d'un nouveau bus
+
+-sur cette page on voit clairement les enregistrements,qr code,capacite,type de bus,le nom du proprietaire 
+
+<img width="100%" src="./docs/images/bus.png">
