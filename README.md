@@ -111,3 +111,9 @@ git push origin feature/paiement
 -cette page c'est pour la gestions des utilisateurs
 
 <img width="100%" src="./docs/images/utilisateurs.png" >
+
+## Page de paiement
+
+-la ou on peut effectuer le paiement
+
+<img width="100%" src="./docs/images/paiement.png">
