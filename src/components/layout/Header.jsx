@@ -46,6 +46,7 @@ const Header = () => {
       { name: "Tableau de Bord", path: "/admin" },
       { name: "Trajets", path: "/admin/trajets" },
       { name: "Bus", path: "/admin/bus" },
+      { name: "Utilisateurs", path: "/admin/users" },
       { name: "Paiements", path: "/admin/paiements" },
       { name: "Tickets", path: "/admin/tickets" },
       { name: "Profile", path: "/profile" },

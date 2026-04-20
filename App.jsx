@@ -14,6 +14,7 @@ import AdminTrajets from "./src/pages/admin/AdminTrajets";
 import AdminBus from "./src/pages/admin/AdminBus";
 import AdminPaiements from "./src/pages/admin/AdminPaiements";
 import AdminTickets from "./src/pages/admin/AdminTickets";
+import AdminUsers from "./src/pages/admin/AdminUsers";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "./index.css";
 
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="/admin" element={<ProtectedRoute allowedRoles={["admin"]}><AdminDashboard /></ProtectedRoute>} />
           <Route path="/admin/trajets" element={<ProtectedRoute allowedRoles={["admin"]}><AdminTrajets /></ProtectedRoute>} />
           <Route path="/admin/bus" element={<ProtectedRoute allowedRoles={["admin"]}><AdminBus /></ProtectedRoute>} />
+          <Route path="/admin/users" element={<ProtectedRoute allowedRoles={["admin"]}><AdminUsers /></ProtectedRoute>} />
           <Route path="/admin/paiements" element={<ProtectedRoute allowedRoles={["admin"]}><AdminPaiements /></ProtectedRoute>} />
           <Route path="/admin/tickets" element={<ProtectedRoute allowedRoles={["admin"]}><AdminTickets /></ProtectedRoute>} />
         </Routes>

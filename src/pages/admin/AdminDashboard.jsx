@@ -21,6 +21,12 @@ const AdminDashboard = () => {
       path: "/admin/bus"
     },
     {
+      title: "Gestion Utilisateurs",
+      desc: "Gérez les comptes utilisateurs, les rôles (Admin, Contrôleur, Passager).",
+      icon: "bi-people",
+      path: "/admin/users"
+    },
+    {
       title: "Consultation Paiements",
       desc: "Suivez en temps réel toutes les transactions effectuées sur la plateforme.",
       icon: "bi-credit-card",
