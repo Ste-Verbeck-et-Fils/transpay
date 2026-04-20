@@ -200,6 +200,39 @@
 .badge-maintenance { background: #fff7ed; color: #c2410c; }
 .badge-hors_service { background: var(--error-bg); color: var(--error-text); }
 
+.admin-chart-section {
+  margin-top: 40px;
+}
+
+.chart-card {
+  background: white;
+  padding: 32px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.chart-header {
+  margin-bottom: 32px;
+}
+
+.chart-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: var(--text-main);
+}
+
+.chart-header p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.chart-content {
+  min-height: 350px;
+}
+
 @media (max-width: 768px) {
   .admin-header {
     flex-direction: column;
