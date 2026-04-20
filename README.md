@@ -105,3 +105,9 @@ git push origin feature/paiement
 -sur cette page on voit clairement les enregistrements,qr code,capacite,type de bus,le nom du proprietaire 
 
 <img width="100%" src="./docs/images/bus.png">
+
+## Page de l'utilisateur
+
+-cette page c'est pour la gestions des utilisateurs
+
+<img width="100%" src="./docs/images/utilisateurs.png" >
