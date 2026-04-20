@@ -117,3 +117,9 @@ git push origin feature/paiement
 -la ou on peut effectuer le paiement
 
 <img width="100%" src="./docs/images/paiement.png">
+
+## Page du ticket
+
+-il y a les tickets des clients
+
+<img width="100%" src="./docs/images/tickets.png">
