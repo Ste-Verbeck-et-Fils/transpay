@@ -12,9 +12,9 @@ const Header = () => {
 
   useEffect(() => {
     setIsMenuOpen(false);
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
-    const userStr = localStorage.getItem('user');
+    const userStr = localStorage.getItem("user");
     if (userStr) {
       setUserRole(JSON.parse(userStr).role);
     } else {
@@ -43,7 +43,7 @@ const Header = () => {
 
   if (userRole === "admin") {
     navLinks = [
-      { name: "Tableau de Bord", path: "/admin" },
+      { name: "Dashboard", path: "/admin" },
       { name: "Trajets", path: "/admin/trajets" },
       { name: "Bus", path: "/admin/bus" },
       { name: "Utilisateurs", path: "/admin/users" },
@@ -55,12 +55,12 @@ const Header = () => {
 
   const handleAuthAction = () => {
     if (isLoggedIn) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      navigate('/login');
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      navigate("/login");
       return;
     }
-    navigate('/login');
+    navigate("/login");
   };
 
   const isActive = (path) => {
@@ -93,7 +93,7 @@ const Header = () => {
         <div className="header-actions">
           <Button
             text={isLoggedIn ? "Se déconnecter" : "Se connecter"}
-            variant="primary"
+            variant={isLoggedIn ? "secondary" : "primary"}
             className="header-btn"
             onClick={handleAuthAction}
           />

@@ -14,7 +14,7 @@ const AdminBus = () => {
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [editingBus, setEditingBus] = useState(null);
-  
+
   const initialFormState = {
     numero_enregistrement: "",
     qr_code: "",
@@ -23,7 +23,7 @@ const AdminBus = () => {
     nom_proprietaire: "",
     statut: "actif",
   };
-  
+
   const [formData, setFormData] = useState(initialFormState);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const AdminBus = () => {
   const handleEdit = (bus) => {
     setEditingBus(bus.id);
     setFormData({ ...bus });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleDelete = async (id) => {
@@ -74,15 +74,25 @@ const AdminBus = () => {
     try {
       const token = localStorage.getItem("token");
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      
+
       if (editingBus) {
-        await axios.put(`http://localhost:5000/api/bus/${editingBus}`, formData, config);
-        setFeedback({ type: "success", message: "Bus mis à jour avec succès." });
+        await axios.put(
+          `http://localhost:5000/api/bus/${editingBus}`,
+          formData,
+          config,
+        );
+        setFeedback({
+          type: "success",
+          message: "Bus mis à jour avec succès.",
+        });
       } else {
         await axios.post("http://localhost:5000/api/bus", formData, config);
-        setFeedback({ type: "success", message: "Nouveau bus ajouté avec succès." });
+        setFeedback({
+          type: "success",
+          message: "Nouveau bus ajouté avec succès.",
+        });
       }
-      
+
       setEditingBus(null);
       setFormData(initialFormState);
       fetchBuses();
@@ -101,12 +111,20 @@ const AdminBus = () => {
         <div className="admin-header">
           <h2>Gestion des Bus</h2>
         </div>
+        <div className="search-bar-wrapper">
+          <i className="bi bi-search search-icon"></i>
+          <input
+            type="text"
+            placeholder="Quel bus cherchez-vous ?"
+            className="search-input"
+          />
+        </div>
 
         {feedback.message && (
-          <Feedback 
-            type={feedback.type} 
-            message={feedback.message} 
-            onClose={() => setFeedback({ type: "", message: "" })} 
+          <Feedback
+            type={feedback.type}
+            message={feedback.message}
+            onClose={() => setFeedback({ type: "", message: "" })}
           />
         )}
 
@@ -120,7 +138,12 @@ const AdminBus = () => {
                 icon="hash"
                 required
                 value={formData.numero_enregistrement}
-                onChange={(e) => setFormData({ ...formData, numero_enregistrement: e.target.value })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    numero_enregistrement: e.target.value,
+                  })
+                }
               />
               <Input
                 label="Code QR"
@@ -128,7 +151,9 @@ const AdminBus = () => {
                 icon="qr-code"
                 required
                 value={formData.qr_code}
-                onChange={(e) => setFormData({ ...formData, qr_code: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, qr_code: e.target.value })
+                }
               />
               <Input
                 label="Capacité (Places)"
@@ -137,7 +162,9 @@ const AdminBus = () => {
                 icon="people"
                 required
                 value={formData.capacite}
-                onChange={(e) => setFormData({ ...formData, capacite: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, capacite: e.target.value })
+                }
               />
               <Input
                 label="Type de Bus"
@@ -145,7 +172,9 @@ const AdminBus = () => {
                 icon="info-circle"
                 required
                 value={formData.type_bus}
-                onChange={(e) => setFormData({ ...formData, type_bus: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, type_bus: e.target.value })
+                }
               />
               <Input
                 label="Propriétaire"
@@ -153,14 +182,18 @@ const AdminBus = () => {
                 icon="person"
                 required
                 value={formData.nom_proprietaire}
-                onChange={(e) => setFormData({ ...formData, nom_proprietaire: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, nom_proprietaire: e.target.value })
+                }
               />
               <div className="admin-select-group">
                 <label>Statut</label>
                 <select
                   className="admin-select"
                   value={formData.statut}
-                  onChange={(e) => setFormData({ ...formData, statut: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, statut: e.target.value })
+                  }
                 >
                   <option value="actif">Actif</option>
                   <option value="hors_service">Hors service</option>
@@ -168,7 +201,7 @@ const AdminBus = () => {
                 </select>
               </div>
             </div>
-            
+
             <div className="admin-form-actions">
               {editingBus && (
                 <Button
@@ -182,10 +215,16 @@ const AdminBus = () => {
                   disabled={submitting}
                 />
               )}
-              <Button 
-                type="submit" 
-                variant="primary" 
-                text={submitting ? "Traitement..." : (editingBus ? "Enregistrer" : "Créer le Bus")}
+              <Button
+                type="submit"
+                variant="primary"
+                text={
+                  submitting
+                    ? "Traitement..."
+                    : editingBus
+                      ? "Enregistrer"
+                      : "Créer le Bus"
+                }
                 disabled={submitting}
               />
             </div>
@@ -194,7 +233,10 @@ const AdminBus = () => {
 
         <div className="admin-table-container">
           {loading ? (
-            <Loading title="Chargement des bus" description="Veuillez patienter..." />
+            <Loading
+              title="Chargement des bus"
+              description="Veuillez patienter..."
+            />
           ) : (
             <table className="admin-table">
               <thead>
@@ -209,38 +251,45 @@ const AdminBus = () => {
                 </tr>
               </thead>
               <tbody>
-                {buses.length > 0 ? buses.map((b) => (
-                  <tr key={b.id}>
-                    <td style={{fontWeight: '700'}}>{b.numero_enregistrement}</td>
-                    <td><code>{b.qr_code}</code></td>
-                    <td>{b.capacite} places</td>
-                    <td>{b.type_bus}</td>
-                    <td>{b.nom_proprietaire}</td>
-                    <td>
-                      <span className={`badge badge-${b.statut}`}>
-                        {b.statut.replace('_', ' ')}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="admin-actions">
-                        <Button
-                          variant="outline"
-                          onClick={() => handleEdit(b)}
-                          text="Modifier"
-                          style={{padding: '6px 12px', fontSize: '13px'}}
-                        />
-                        <Button
-                          variant="outline"
-                          onClick={() => handleDelete(b.id)}
-                          text="Supprimer"
-                          style={{padding: '6px 12px', fontSize: '13px', color: 'var(--error-text)', borderColor: 'var(--error-bg)'}}
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                )) : (
+                {buses.length > 0 ? (
+                  buses.map((b) => (
+                    <tr key={b.id}>
+                      <td style={{ fontWeight: "700" }}>
+                        {b.numero_enregistrement}
+                      </td>
+                      <td>
+                        <code>{b.qr_code}</code>
+                      </td>
+                      <td>{b.capacite} places</td>
+                      <td>{b.type_bus}</td>
+                      <td>{b.nom_proprietaire}</td>
+                      <td>
+                        <span className={`badge badge-${b.statut}`}>
+                          {b.statut.replace("_", " ")}
+                        </span>
+                      </td>
+                      <td>
+                        <div className="admin-actions">
+                          <Button
+                            variant="primary"
+                            onClick={() => handleEdit(b)}
+                            text="Modifier"
+                            style={{ padding: "6px 12px", fontSize: "13px" }}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
                   <tr>
-                    <td colSpan="7" style={{textAlign: 'center', padding: '40px', color: 'var(--text-muted)'}}>
+                    <td
+                      colSpan="7"
+                      style={{
+                        textAlign: "center",
+                        padding: "40px",
+                        color: "var(--text-muted)",
+                      }}
+                    >
                       Aucun bus enregistré pour le moment.
                     </td>
                   </tr>
