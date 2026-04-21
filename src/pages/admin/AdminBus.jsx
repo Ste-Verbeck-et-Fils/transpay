@@ -110,6 +110,10 @@ const AdminBus = () => {
     }
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="admin-page">
       <Header />
@@ -118,13 +122,20 @@ const AdminBus = () => {
           <h2>Gestion des Bus</h2>
         </div>
         <div className="search-bar-wrapper">
-          <i className="bi bi-search search-icon"></i>
-          <input
-            type="text"
-            placeholder="Quel bus cherchez-vous ?"
-            className="search-input"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+          <div className="search-input-container">
+            <i className="bi bi-search search-icon"></i>
+            <input
+              type="text"
+              placeholder="Quel bus cherchez-vous ?"
+              className="search-input"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <Button 
+            text="Imprimer l'état" 
+            icon="printer" 
+            onClick={handlePrint} 
           />
         </div>
 

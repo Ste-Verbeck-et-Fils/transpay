@@ -5,6 +5,7 @@ import Footer from "../../components/layout/Footer";
 import "../../styles/admin.css";
 import Loading from "../../components/ui/Loading";
 import Feedback from "../../components/ui/Feedback";
+import Button from "../../components/ui/Button";
 
 const AdminTickets = () => {
   const [tickets, setTickets] = useState([]);
@@ -46,6 +47,10 @@ const AdminTickets = () => {
     });
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="admin-page">
       <Header />
@@ -54,13 +59,20 @@ const AdminTickets = () => {
           <h2>Consultation des Tickets</h2>
         </div>
         <div className="search-bar-wrapper">
-          <i className="bi bi-search search-icon"></i>
-          <input
-            type="text"
-            placeholder="Quel ticket cherchez-vous ?"
-            className="search-input"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+          <div className="search-input-container">
+            <i className="bi bi-search search-icon"></i>
+            <input
+              type="text"
+              placeholder="Quel ticket cherchez-vous ?"
+              className="search-input"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <Button 
+            text="Imprimer l'état" 
+            icon="printer" 
+            onClick={handlePrint} 
           />
         </div>
 

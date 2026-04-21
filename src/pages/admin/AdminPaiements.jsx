@@ -5,6 +5,7 @@ import Footer from "../../components/layout/Footer";
 import "../../styles/admin.css";
 import Loading from "../../components/ui/Loading";
 import Feedback from "../../components/ui/Feedback";
+import Button from "../../components/ui/Button";
 
 const AdminPaiements = () => {
   const [paiements, setPaiements] = useState([]);
@@ -69,10 +70,11 @@ const AdminPaiements = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <button className="print-button" onClick={handlePrint}>
-            <i className="bi bi-printer"></i>
-            <span>Imprimer l'état</span>
-          </button>
+          <Button 
+            text="Imprimer l'état" 
+            icon="printer" 
+            onClick={handlePrint} 
+          />
         </div>
 
         {feedback.message && (

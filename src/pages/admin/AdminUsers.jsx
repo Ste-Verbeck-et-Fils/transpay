@@ -5,6 +5,7 @@ import Footer from "../../components/layout/Footer";
 import "../../styles/admin.css";
 import Loading from "../../components/ui/Loading";
 import Feedback from "../../components/ui/Feedback";
+import Button from "../../components/ui/Button";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -93,6 +94,10 @@ const AdminUsers = () => {
     });
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="admin-page">
       <Header />
@@ -101,13 +106,20 @@ const AdminUsers = () => {
           <h2>Gestion des Utilisateurs</h2>
         </div>
         <div className="search-bar-wrapper">
-          <i className="bi bi-search search-icon"></i>
-          <input
-            type="text"
-            placeholder="Quel utilisateur cherchez-vous ?"
-            className="search-input"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+          <div className="search-input-container">
+            <i className="bi bi-search search-icon"></i>
+            <input
+              type="text"
+              placeholder="Quel utilisateur cherchez-vous ?"
+              className="search-input"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <Button 
+            text="Imprimer l'état" 
+            icon="printer" 
+            onClick={handlePrint} 
           />
         </div>
 
