@@ -33,15 +33,20 @@ const AdminTrajets = () => {
 
   const fetchTrajets = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/trajets");
+      const token = localStorage.getItem("token");
+      const response = await axios.get("http://localhost:5000/api/trajets/admin/all", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       if (response.data.success) {
         setTrajets(response.data.data);
       }
     } catch (error) {
       console.error("Erreur fetch trajets", error);
+      const status = error.response?.status;
+      const msg = error.response?.data?.message || "Impossible de charger les trajets.";
       setFeedback({
         type: "error",
-        message: "Impossible de charger les trajets.",
+        message: `${msg} (Code: ${status})`,
       });
     } finally {
       setLoading(false);
