@@ -121,6 +121,22 @@ const AdminBus = () => {
         <div className="admin-header">
           <h2>Gestion des Bus</h2>
         </div>
+
+        {/* Nouveau Header d'Impression Pro */}
+        <div className="print-only print-header-pro">
+          <div className="print-header-main">
+            <div className="print-entity-info">
+              <h1 className="print-brand">TransPay</h1>
+              <p className="print-subtitle">Système Intégré de Transport Urbain</p>
+            </div>
+            <div className="print-report-info">
+              <h2 className="print-type">INVENTAIRE DU PARC AUTOMOBILE</h2>
+              <p className="print-date">Date d'émission: {new Date().toLocaleDateString('fr-FR')}</p>
+            </div>
+          </div>
+          <div className="print-divider-clean"></div>
+          <h3 className="print-section-title">État des Bus Enregistrés</h3>
+        </div>
         <div className="search-bar-wrapper">
           <div className="search-input-container">
             <i className="bi bi-search search-icon"></i>
