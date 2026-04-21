@@ -70,9 +70,10 @@ const AdminTickets = () => {
             />
           </div>
           <Button 
-            text="Imprimer l'état" 
+            text="Imprimer" 
             icon="printer" 
             onClick={handlePrint} 
+            className="print-button-small"
           />
         </div>
 

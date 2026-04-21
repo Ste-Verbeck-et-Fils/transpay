@@ -137,9 +137,10 @@ const AdminTrajets = () => {
             />
           </div>
           <Button 
-            text="Imprimer l'état" 
+            text="Imprimer" 
             icon="printer" 
             onClick={handlePrint} 
+            className="print-button-small"
           />
         </div>
 
@@ -258,7 +259,7 @@ const AdminTrajets = () => {
                   <th>Prix</th>
                   <th>Durée</th>
                   <th>Statut</th>
-                  <th>Actions</th>
+                  <th className="no-print">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -307,7 +308,7 @@ const AdminTrajets = () => {
                           {t.statut}
                         </span>
                       </td>
-                      <td>
+                      <td className="no-print">
                         <div className="admin-actions">
                           <Button
                             variant="primary"

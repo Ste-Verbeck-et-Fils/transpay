@@ -117,9 +117,10 @@ const AdminUsers = () => {
             />
           </div>
           <Button 
-            text="Imprimer l'état" 
+            text="Imprimer" 
             icon="printer" 
             onClick={handlePrint} 
+            className="print-button-small"
           />
         </div>
 
@@ -188,8 +189,9 @@ const AdminUsers = () => {
                       </td>
                       <td>{user.telephone}</td>
                       <td>
+                        <span className="print-only" style={{ textTransform: 'capitalize' }}>{user.role}</span>
                         <select
-                          className="admin-select"
+                          className="admin-select no-print"
                           value={user.role}
                           style={{
                             width: "120px",
@@ -207,8 +209,9 @@ const AdminUsers = () => {
                         </select>
                       </td>
                       <td>
+                        <span className="print-only" style={{ textTransform: 'capitalize' }}>{user.statut}</span>
                         <select
-                          className="admin-select"
+                          className="admin-select no-print"
                           value={user.statut}
                           style={{
                             width: "100px",

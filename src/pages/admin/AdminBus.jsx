@@ -133,9 +133,10 @@ const AdminBus = () => {
             />
           </div>
           <Button 
-            text="Imprimer l'état" 
+            text="Imprimer" 
             icon="printer" 
             onClick={handlePrint} 
+            className="print-button-small"
           />
         </div>
 
@@ -258,7 +259,7 @@ const AdminBus = () => {
                   <th>Type</th>
                   <th>Propriétaire</th>
                   <th>Statut</th>
-                  <th>Actions</th>
+                  <th className="no-print">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -287,7 +288,7 @@ const AdminBus = () => {
                           {b.statut.replace("_", " ")}
                         </span>
                       </td>
-                      <td>
+                      <td className="no-print">
                         <div className="admin-actions">
                           <Button
                             variant="primary"
