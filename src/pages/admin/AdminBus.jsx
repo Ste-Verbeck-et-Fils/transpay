@@ -41,7 +41,6 @@ const AdminBus = () => {
         setBuses(response.data.data);
       }
     } catch (error) {
-      console.error("Erreur fetch bus", error);
       setFeedback({ type: "error", message: "Impossible de charger les bus." });
     } finally {
       setLoading(false);
@@ -85,7 +84,6 @@ const AdminBus = () => {
       const token = localStorage.getItem("token");
       const config = { headers: { Authorization: `Bearer ${token}` } };
 
-      console.log("Envoi modification bus:", editingBus, formData);
       if (editingBus) {
         await axios.put(
           `http://localhost:5000/api/bus/${editingBus}`,
