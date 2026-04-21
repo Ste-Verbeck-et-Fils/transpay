@@ -85,6 +85,7 @@ const AdminBus = () => {
       const token = localStorage.getItem("token");
       const config = { headers: { Authorization: `Bearer ${token}` } };
 
+      console.log("Envoi modification bus:", editingBus, formData);
       if (editingBus) {
         await axios.put(
           `http://localhost:5000/api/bus/${editingBus}`,
@@ -108,7 +109,8 @@ const AdminBus = () => {
       fetchBuses();
     } catch (error) {
       console.error("Erreur submit", error);
-      setFeedback({ type: "error", message: "Une erreur est survenue." });
+      const msg = error.response?.data?.message || "Une erreur est survenue lors de l'enregistrement.";
+      setFeedback({ type: "error", message: msg });
     } finally {
       setSubmitting(false);
     }
