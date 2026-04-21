@@ -5,11 +5,13 @@ import Footer from "../../components/layout/Footer";
 import "../../styles/admin.css";
 import Loading from "../../components/ui/Loading";
 import Feedback from "../../components/ui/Feedback";
+import Button from "../../components/ui/Button";
 
 const AdminPaiements = () => {
   const [paiements, setPaiements] = useState([]);
   const [loading, setLoading] = useState(true);
   const [feedback, setFeedback] = useState({ type: "", message: "" });
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchPaiements();
@@ -36,6 +38,7 @@ const AdminPaiements = () => {
   };
 
   const formatDate = (dateString) => {
+    if (!dateString) return "En attente";
     return new Date(dateString).toLocaleDateString("fr-FR", {
       day: "2-digit",
       month: "short",
@@ -43,6 +46,10 @@ const AdminPaiements = () => {
       hour: "2-digit",
       minute: "2-digit",
     });
+  };
+
+  const handlePrint = () => {
+    window.print();
   };
 
   return (
@@ -53,11 +60,20 @@ const AdminPaiements = () => {
           <h2>Historique des Paiements</h2>
         </div>
         <div className="search-bar-wrapper">
-          <i className="bi bi-search search-icon"></i>
-          <input
-            type="text"
-            placeholder="Quel paiement cherchez-vous ?"
-            className="search-input"
+          <div className="search-input-container">
+            <i className="bi bi-search search-icon"></i>
+            <input
+              type="text"
+              placeholder="Quel paiement cherchez-vous ?"
+              className="search-input"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <Button 
+            text="Imprimer l'état" 
+            icon="printer" 
+            onClick={handlePrint} 
           />
         </div>
 
@@ -88,8 +104,32 @@ const AdminPaiements = () => {
                 </tr>
               </thead>
               <tbody>
-                {paiements.length > 0 ? (
-                  paiements.map((p) => (
+                {paiements.filter(p => {
+                  const searchStr = searchTerm.toLowerCase();
+                  const dateStr = p.date_paiement ? new Date(p.date_paiement).toLocaleDateString('fr-FR') : "";
+                  const pId = p.paiement_id?.toString() || "";
+                  const ref = p.reference_transaction?.toLowerCase() || "";
+                  
+                  return (
+                    ref.includes(searchStr) ||
+                    pId.includes(searchStr) ||
+                    dateStr.includes(searchStr)
+                  );
+                }).length > 0 ? (
+                  paiements
+                    .filter(p => {
+                      const searchStr = searchTerm.toLowerCase();
+                      const dateStr = p.date_paiement ? new Date(p.date_paiement).toLocaleDateString('fr-FR') : "";
+                      const pId = p.paiement_id?.toString() || "";
+                      const ref = p.reference_transaction?.toLowerCase() || "";
+
+                      return (
+                        ref.includes(searchStr) ||
+                        pId.includes(searchStr) ||
+                        dateStr.includes(searchStr)
+                      );
+                    })
+                    .map((p) => (
                     <tr key={p.paiement_id}>
                       <td>
                         <div

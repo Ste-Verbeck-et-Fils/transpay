@@ -14,6 +14,7 @@ const AdminTrajets = () => {
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [editingTrajet, setEditingTrajet] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const initialFormState = {
     point_depart: "",
@@ -70,6 +71,12 @@ const AdminTrajets = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (parseFloat(formData.prix) <= 0) {
+      setFeedback({ type: "error", message: "Le prix doit être un nombre positif." });
+      return;
+    }
+
     setSubmitting(true);
     try {
       const token = localStorage.getItem("token");
@@ -107,6 +114,10 @@ const AdminTrajets = () => {
     }
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="admin-page">
       <Header />
@@ -115,11 +126,20 @@ const AdminTrajets = () => {
           <h2>Gestion des Trajets</h2>
         </div>
         <div className="search-bar-wrapper">
-          <i className="bi bi-search search-icon"></i>
-          <input
-            type="text"
-            placeholder="Quel trajet cherchez-vous ?"
-            className="search-input"
+          <div className="search-input-container">
+            <i className="bi bi-search search-icon"></i>
+            <input
+              type="text"
+              placeholder="Quel trajet cherchez-vous ?"
+              className="search-input"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <Button 
+            text="Imprimer l'état" 
+            icon="printer" 
+            onClick={handlePrint} 
           />
         </div>
 
@@ -164,9 +184,12 @@ const AdminTrajets = () => {
                 icon="currency-exchange"
                 required
                 value={formData.prix}
-                onChange={(e) =>
-                  setFormData({ ...formData, prix: e.target.value })
-                }
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val === "" || parseFloat(val) >= 0) {
+                    setFormData({ ...formData, prix: val });
+                  }
+                }}
               />
               <Input
                 label="Durée Estimée"
@@ -239,8 +262,16 @@ const AdminTrajets = () => {
                 </tr>
               </thead>
               <tbody>
-                {trajets.length > 0 ? (
-                  trajets.map((t) => (
+                {trajets.filter(t => 
+                  t.point_depart.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                  t.point_arrivee.toLowerCase().includes(searchTerm.toLowerCase())
+                ).length > 0 ? (
+                  trajets
+                    .filter(t => 
+                      t.point_depart.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                      t.point_arrivee.toLowerCase().includes(searchTerm.toLowerCase())
+                    )
+                    .map((t) => (
                     <tr key={t.id}>
                       <td>
                         <div

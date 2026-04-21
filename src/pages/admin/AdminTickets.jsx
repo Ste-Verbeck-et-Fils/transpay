@@ -5,11 +5,13 @@ import Footer from "../../components/layout/Footer";
 import "../../styles/admin.css";
 import Loading from "../../components/ui/Loading";
 import Feedback from "../../components/ui/Feedback";
+import Button from "../../components/ui/Button";
 
 const AdminTickets = () => {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [feedback, setFeedback] = useState({ type: "", message: "" });
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchTickets();
@@ -45,6 +47,10 @@ const AdminTickets = () => {
     });
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="admin-page">
       <Header />
@@ -53,11 +59,20 @@ const AdminTickets = () => {
           <h2>Consultation des Tickets</h2>
         </div>
         <div className="search-bar-wrapper">
-          <i className="bi bi-search search-icon"></i>
-          <input
-            type="text"
-            placeholder="Quel ticket cherchez-vous ?"
-            className="search-input"
+          <div className="search-input-container">
+            <i className="bi bi-search search-icon"></i>
+            <input
+              type="text"
+              placeholder="Quel ticket cherchez-vous ?"
+              className="search-input"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <Button 
+            text="Imprimer l'état" 
+            icon="printer" 
+            onClick={handlePrint} 
           />
         </div>
 
@@ -88,8 +103,18 @@ const AdminTickets = () => {
                 </tr>
               </thead>
               <tbody>
-                {tickets.length > 0 ? (
-                  tickets.map((t) => (
+                {tickets.filter(t => 
+                  t.utilisateur_nom.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                  t.code_ticket.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  t.bus.toLowerCase().includes(searchTerm.toLowerCase())
+                ).length > 0 ? (
+                  tickets
+                    .filter(t => 
+                      t.utilisateur_nom.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                      t.code_ticket.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      t.bus.toLowerCase().includes(searchTerm.toLowerCase())
+                    )
+                    .map((t) => (
                     <tr key={t.ticket_id}>
                       <td>
                         <strong>{t.utilisateur_nom}</strong>

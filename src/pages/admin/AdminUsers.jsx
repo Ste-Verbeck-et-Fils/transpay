@@ -5,12 +5,14 @@ import Footer from "../../components/layout/Footer";
 import "../../styles/admin.css";
 import Loading from "../../components/ui/Loading";
 import Feedback from "../../components/ui/Feedback";
+import Button from "../../components/ui/Button";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [updatingId, setUpdatingId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchUsers();
@@ -92,6 +94,10 @@ const AdminUsers = () => {
     });
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="admin-page">
       <Header />
@@ -100,11 +106,20 @@ const AdminUsers = () => {
           <h2>Gestion des Utilisateurs</h2>
         </div>
         <div className="search-bar-wrapper">
-          <i className="bi bi-search search-icon"></i>
-          <input
-            type="text"
-            placeholder="Quel utilisateur cherchez-vous ?"
-            className="search-input"
+          <div className="search-input-container">
+            <i className="bi bi-search search-icon"></i>
+            <input
+              type="text"
+              placeholder="Quel utilisateur cherchez-vous ?"
+              className="search-input"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <Button 
+            text="Imprimer l'état" 
+            icon="printer" 
+            onClick={handlePrint} 
           />
         </div>
 
@@ -131,8 +146,16 @@ const AdminUsers = () => {
                 </tr>
               </thead>
               <tbody>
-                {users.length > 0 ? (
-                  users.map((user) => (
+                {users.filter(user => 
+                  user.nom_complet.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                  user.telephone.includes(searchTerm)
+                ).length > 0 ? (
+                  users
+                    .filter(user => 
+                      user.nom_complet.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                      user.telephone.includes(searchTerm)
+                    )
+                    .map((user) => (
                     <tr key={user.id}>
                       <td>
                         <div
