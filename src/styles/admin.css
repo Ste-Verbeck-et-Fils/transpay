@@ -365,19 +365,10 @@
   }
 
   .print-divider-clean {
-    height: 1px;
+    height: 2px;
     background: #000;
     width: 100%;
-    margin-bottom: 20px;
-  }
-
-  .print-section-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #000;
-    margin: 0 0 15px 0;
-    text-decoration: underline;
-    text-underline-offset: 4px;
+    margin-bottom: 25px;
   }
 
   .admin-page {
@@ -398,18 +389,50 @@
 
   .admin-table {
     width: 100%;
-    border: 1px solid #000;
+    border-collapse: collapse;
+    border: 1px solid #e2e8f0;
+    font-size: 11px;
   }
 
   .admin-table th {
-    background: #f0f0f0 !important;
-    color: black !important;
-    border: 1px solid #000 !important;
+    background: #f8fafc !important;
+    color: #475569 !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 12px 8px !important;
+    border: 1px solid #e2e8f0 !important;
     -webkit-print-color-adjust: exact;
   }
 
   .admin-table td {
-    border: 1px solid #ccc !important;
+    padding: 10px 8px !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #1e293b !important;
+  }
+
+  .print-footer-pro {
+    position: fixed;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background: white;
+    padding-top: 10px;
+  }
+
+  .print-footer-line {
+    height: 1px;
+    background: #e2e8f0;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .print-footer-text {
+    font-size: 10px;
+    font-weight: 500;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   body {

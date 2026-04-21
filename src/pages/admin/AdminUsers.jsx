@@ -111,7 +111,7 @@ const AdminUsers = () => {
           <div className="print-header-main">
             <div className="print-entity-info">
               <h1 className="print-brand">TransPay</h1>
-              <p className="print-subtitle">Système Intégré de Transport Urbain</p>
+              <p className="print-subtitle">SYSTÈME INTÉGRÉ DE TRANSPORT URBAIN - GOMA</p>
             </div>
             <div className="print-report-info">
               <h2 className="print-type">ADMINISTRATION DES UTILISATEURS</h2>
@@ -119,7 +119,6 @@ const AdminUsers = () => {
             </div>
           </div>
           <div className="print-divider-clean"></div>
-          <h3 className="print-section-title">Liste du Personnel et Passagers</h3>
         </div>
         <div className="search-bar-wrapper">
           <div className="search-input-container">
@@ -268,6 +267,13 @@ const AdminUsers = () => {
               </tbody>
             </table>
           )}
+        </div>
+        {/* Footer d'Impression Pro */}
+        <div className="print-only print-footer-pro">
+          <div className="print-footer-line"></div>
+          <p className="print-footer-text">
+            Cette application a été développée par les étudiants de l'ISIG-GOMA
+          </p>
         </div>
       </div>
       <Footer />
