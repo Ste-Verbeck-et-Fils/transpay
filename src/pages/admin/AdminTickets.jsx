@@ -10,6 +10,7 @@ const AdminTickets = () => {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [feedback, setFeedback] = useState({ type: "", message: "" });
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchTickets();
@@ -58,6 +59,8 @@ const AdminTickets = () => {
             type="text"
             placeholder="Quel ticket cherchez-vous ?"
             className="search-input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
@@ -88,8 +91,18 @@ const AdminTickets = () => {
                 </tr>
               </thead>
               <tbody>
-                {tickets.length > 0 ? (
-                  tickets.map((t) => (
+                {tickets.filter(t => 
+                  t.utilisateur_nom.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                  t.code_ticket.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  t.bus.toLowerCase().includes(searchTerm.toLowerCase())
+                ).length > 0 ? (
+                  tickets
+                    .filter(t => 
+                      t.utilisateur_nom.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                      t.code_ticket.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      t.bus.toLowerCase().includes(searchTerm.toLowerCase())
+                    )
+                    .map((t) => (
                     <tr key={t.ticket_id}>
                       <td>
                         <strong>{t.utilisateur_nom}</strong>

@@ -11,6 +11,7 @@ const AdminUsers = () => {
   const [loading, setLoading] = useState(true);
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [updatingId, setUpdatingId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchUsers();
@@ -105,6 +106,8 @@ const AdminUsers = () => {
             type="text"
             placeholder="Quel utilisateur cherchez-vous ?"
             className="search-input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
@@ -131,8 +134,16 @@ const AdminUsers = () => {
                 </tr>
               </thead>
               <tbody>
-                {users.length > 0 ? (
-                  users.map((user) => (
+                {users.filter(user => 
+                  user.nom_complet.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                  user.telephone.includes(searchTerm)
+                ).length > 0 ? (
+                  users
+                    .filter(user => 
+                      user.nom_complet.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                      user.telephone.includes(searchTerm)
+                    )
+                    .map((user) => (
                     <tr key={user.id}>
                       <td>
                         <div

@@ -14,10 +14,10 @@ const AdminBus = () => {
   const [submitting, setSubmitting] = useState(false);
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [editingBus, setEditingBus] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const initialFormState = {
     numero_enregistrement: "",
-    qr_code: "",
     capacite: "",
     type_bus: "Minibus Hiace",
     nom_proprietaire: "",
@@ -70,6 +70,12 @@ const AdminBus = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (parseInt(formData.capacite) <= 0) {
+      setFeedback({ type: "error", message: "La capacité doit être un nombre positif." });
+      return;
+    }
+
     setSubmitting(true);
     try {
       const token = localStorage.getItem("token");
@@ -117,6 +123,8 @@ const AdminBus = () => {
             type="text"
             placeholder="Quel bus cherchez-vous ?"
             className="search-input"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
@@ -146,25 +154,18 @@ const AdminBus = () => {
                 }
               />
               <Input
-                label="Code QR"
-                placeholder="Ex: QR-BUS-001"
-                icon="qr-code"
-                required
-                value={formData.qr_code}
-                onChange={(e) =>
-                  setFormData({ ...formData, qr_code: e.target.value })
-                }
-              />
-              <Input
                 label="Capacité (Places)"
                 type="number"
                 placeholder="Ex: 18"
                 icon="people"
                 required
                 value={formData.capacite}
-                onChange={(e) =>
-                  setFormData({ ...formData, capacite: e.target.value })
-                }
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val === "" || parseInt(val) >= 0) {
+                    setFormData({ ...formData, capacite: val });
+                  }
+                }}
               />
               <Input
                 label="Type de Bus"
@@ -241,8 +242,7 @@ const AdminBus = () => {
             <table className="admin-table">
               <thead>
                 <tr>
-                  <th>N° Enreg.</th>
-                  <th>QR Code</th>
+                  <th>N° Enreg. / QR</th>
                   <th>Capacité</th>
                   <th>Type</th>
                   <th>Propriétaire</th>
@@ -251,14 +251,22 @@ const AdminBus = () => {
                 </tr>
               </thead>
               <tbody>
-                {buses.length > 0 ? (
-                  buses.map((b) => (
+                {buses.filter(b => 
+                  b.numero_enregistrement.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                  b.nom_proprietaire.toLowerCase().includes(searchTerm.toLowerCase())
+                ).length > 0 ? (
+                  buses
+                    .filter(b => 
+                      b.numero_enregistrement.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                      b.nom_proprietaire.toLowerCase().includes(searchTerm.toLowerCase())
+                    )
+                    .map((b) => (
                     <tr key={b.id}>
                       <td style={{ fontWeight: "700" }}>
-                        {b.numero_enregistrement}
-                      </td>
-                      <td>
-                        <code>{b.qr_code}</code>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                          <span>{b.numero_enregistrement}</span>
+                          <code style={{ fontSize: '10px', color: 'var(--text-muted)' }}>ID: {b.id}</code>
+                        </div>
                       </td>
                       <td>{b.capacite} places</td>
                       <td>{b.type_bus}</td>
