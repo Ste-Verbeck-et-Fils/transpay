@@ -63,6 +63,7 @@ const Ticket = () => {
 
   if (loading) {
     return (
+      <h1 className="text-center my-4">Mon Ticket</h1>
       <section className="ticket-page">
         <Header />
         <div className="loading-container">
