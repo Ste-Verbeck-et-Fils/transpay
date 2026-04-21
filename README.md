@@ -84,7 +84,42 @@ git push origin feature/paiement
 
 ## Notre page d'accueil 
 
-Cette page d’accueil est jolie et facile à comprendre. Elle présente clairement les principales fonctions de l’application TransPay et permet à l’utilisateur de s’y retrouver rapidement.
-
+-Cette page d’accueil est jolie et facile à comprendre. Elle présente clairement les principales fonctions de l’application TransPay et permet à l’utilisateur de s’y retrouver rapidement.
 
 <img width="100%" src="./docs/images/home.png"  >  
+
+## Dashboard
+
+- Une page de tableau de bord qui contient les graphiques
+  
+<img width="100%" src="./docs/images/dashboards.png" >
+
+## Page des trajets 
+
+-une page des trajets qui indique les trajets que les passagers sera entrain de faire le prix a payer,la duree et le statut 
+
+<img width="100%" src="./docs/images/trajets.png">
+
+## Page d'ajout d'un nouveau bus
+
+-sur cette page on voit clairement les enregistrements,qr code,capacite,type de bus,le nom du proprietaire 
+
+<img width="100%" src="./docs/images/bus.png">
+
+## Page de l'utilisateur
+
+-cette page c'est pour la gestions des utilisateurs
+
+<img width="100%" src="./docs/images/utilisateurs.png" >
+
+## Page de paiement
+
+-la ou on peut effectuer le paiement
+
+<img width="100%" src="./docs/images/paiement.png">
+
+## Page du ticket
+
+-il y a les tickets des clients
+
+<img width="100%" src="./docs/images/tickets.png">
