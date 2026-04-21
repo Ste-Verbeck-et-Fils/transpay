@@ -13,7 +13,7 @@ import {
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import Loading from "../../components/ui/Loading";
-import "../../styles/admin.css";
+import "../../styles/admin/AdminDashboard.css";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState([]);

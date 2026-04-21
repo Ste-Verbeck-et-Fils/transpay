@@ -1,0 +1,22 @@
+@import "./BaseAdmin.css";
+
+/* Bus inventory specific styles */
+.bus-id-code {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.bus-info-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.bus-badge {
+  text-transform: capitalize;
+}
+
+@media (max-width: 768px) {
+  .admin-table td {
+    padding: 15px 12px;
+  }
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
-import "../../styles/admin.css";
+import "../../styles/admin/AdminTrajets.css";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import Loading from "../../components/ui/Loading";
@@ -15,6 +15,7 @@ const AdminTrajets = () => {
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [editingTrajet, setEditingTrajet] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterStatus, setFilterStatus] = useState("tous");
 
   const initialFormState = {
     point_depart: "",
@@ -73,7 +74,10 @@ const AdminTrajets = () => {
     e.preventDefault();
 
     if (parseFloat(formData.prix) <= 0) {
-      setFeedback({ type: "error", message: "Le prix doit être un nombre positif." });
+      setFeedback({
+        type: "error",
+        message: "Le prix doit être un nombre positif.",
+      });
       return;
     }
 
@@ -126,35 +130,54 @@ const AdminTrajets = () => {
           <h2>Gestion des Trajets</h2>
         </div>
 
-        {/* Nouveau Header d'Impression Pro */}
         <div className="print-only print-header-pro">
           <div className="print-header-main">
             <div className="print-entity-info">
               <h1 className="print-brand">TransPay</h1>
-              <p className="print-subtitle">SYSTÈME INTÉGRÉ DE TRANSPORT URBAIN - GOMA</p>
+              <p className="print-subtitle">
+                SYSTÈME INTÉGRÉ DE TRANSPORT URBAIN - GOMA
+              </p>
             </div>
             <div className="print-report-info">
               <h2 className="print-type">CATALOGUE DES ITINÉRAIRES</h2>
-              <p className="print-date">Date d'émission: {new Date().toLocaleDateString('fr-FR')}</p>
+              <p className="print-date">
+                Date d'émission: {new Date().toLocaleDateString("fr-FR")}
+              </p>
             </div>
           </div>
           <div className="print-divider-clean"></div>
         </div>
-        <div className="search-bar-wrapper">
+        <div className="search-bar-wrapper no-print">
           <div className="search-input-container">
             <i className="bi bi-search search-icon"></i>
             <input
               type="text"
-              placeholder="Quel trajet cherchez-vous ?"
+              placeholder="Départ ou Arrivée..."
               className="search-input"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <Button 
-            text="Imprimer" 
-            icon="printer" 
-            onClick={handlePrint} 
+
+          <div className="filter-group">
+            <div className="filter-item">
+              <label>Statut</label>
+              <select
+                className="filter-select"
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+              >
+                <option value="tous">Tous les trajets</option>
+                <option value="actif">Actif</option>
+                <option value="inactif">Inactif</option>
+              </select>
+            </div>
+          </div>
+
+          <Button
+            text="Imprimer"
+            icon="printer"
+            onClick={handlePrint}
             className="print-button-small"
           />
         </div>
@@ -278,63 +301,73 @@ const AdminTrajets = () => {
                 </tr>
               </thead>
               <tbody>
-                {trajets.filter(t => 
-                  t.point_depart.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                  t.point_arrivee.toLowerCase().includes(searchTerm.toLowerCase())
-                ).length > 0 ? (
+                {trajets.filter((t) => {
+                  const searchStr = searchTerm.toLowerCase();
+                  const matchesSearch =
+                    t.point_depart.toLowerCase().includes(searchStr) ||
+                    t.point_arrivee.toLowerCase().includes(searchStr);
+                  const matchesStatus =
+                    filterStatus === "tous" || t.statut === filterStatus;
+                  return matchesSearch && matchesStatus;
+                }).length > 0 ? (
                   trajets
-                    .filter(t => 
-                      t.point_depart.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                      t.point_arrivee.toLowerCase().includes(searchTerm.toLowerCase())
-                    )
+                    .filter((t) => {
+                      const searchStr = searchTerm.toLowerCase();
+                      const matchesSearch =
+                        t.point_depart.toLowerCase().includes(searchStr) ||
+                        t.point_arrivee.toLowerCase().includes(searchStr);
+                      const matchesStatus =
+                        filterStatus === "tous" || t.statut === filterStatus;
+                      return matchesSearch && matchesStatus;
+                    })
                     .map((t) => (
-                    <tr key={t.id}>
-                      <td>
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                          }}
-                        >
-                          <strong>{t.point_depart}</strong>
-                          <i
-                            className="bi bi-arrow-right"
-                            style={{ color: "var(--text-muted)" }}
-                          ></i>
-                          <strong>{t.point_arrivee}</strong>
-                        </div>
-                      </td>
-                      <td>
-                        <span
-                          style={{
-                            color: "var(--text-muted)",
-                            fontWeight: "700",
-                          }}
-                        >
-                          {t.prix} CDF
-                        </span>
-                      </td>
-                      <td>{t.duree_estimee || "N/A"}</td>
-                      <td>
-                        <span
-                          className={`badge ${t.statut === "actif" ? "badge-actif" : "badge-hors_service"}`}
-                        >
-                          {t.statut}
-                        </span>
-                      </td>
-                      <td className="no-print">
-                        <div className="admin-actions">
-                          <Button
-                            variant="primary"
-                            onClick={() => handleEdit(t)}
-                            text="Modifier"
-                            style={{ padding: "6px 12px", fontSize: "13px" }}
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  ))
+                      <tr key={t.id}>
+                        <td>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "8px",
+                            }}
+                          >
+                            <strong>{t.point_depart}</strong>
+                            <i
+                              className="bi bi-arrow-right"
+                              style={{ color: "var(--text-muted)" }}
+                            ></i>
+                            <strong>{t.point_arrivee}</strong>
+                          </div>
+                        </td>
+                        <td>
+                          <span
+                            style={{
+                              color: "var(--text-muted)",
+                              fontWeight: "700",
+                            }}
+                          >
+                            {t.prix} CDF
+                          </span>
+                        </td>
+                        <td>{t.duree_estimee || "N/A"}</td>
+                        <td>
+                          <span
+                            className={`badge ${t.statut === "actif" ? "badge-actif" : "badge-hors_service"}`}
+                          >
+                            {t.statut}
+                          </span>
+                        </td>
+                        <td className="no-print">
+                          <div className="admin-actions">
+                            <Button
+                              variant="primary"
+                              onClick={() => handleEdit(t)}
+                              text="Modifier"
+                              style={{ padding: "6px 12px", fontSize: "13px" }}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    ))
                 ) : (
                   <tr>
                     <td
@@ -353,7 +386,7 @@ const AdminTrajets = () => {
             </table>
           )}
         </div>
-        {/* Footer d'Impression Pro */}
+
         <div className="print-only print-footer-pro">
           <div className="print-footer-line"></div>
           <p className="print-footer-text">

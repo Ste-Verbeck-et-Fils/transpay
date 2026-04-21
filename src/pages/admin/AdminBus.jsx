@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
-import "../../styles/admin.css";
+import "../../styles/admin/AdminBus.css";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import Loading from "../../components/ui/Loading";
@@ -15,6 +15,7 @@ const AdminBus = () => {
   const [feedback, setFeedback] = useState({ type: "", message: "" });
   const [editingBus, setEditingBus] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterStatus, setFilterStatus] = useState("tous");
 
   const initialFormState = {
     numero_enregistrement: "",
@@ -72,7 +73,10 @@ const AdminBus = () => {
     e.preventDefault();
 
     if (parseInt(formData.capacite) <= 0) {
-      setFeedback({ type: "error", message: "La capacité doit être un nombre positif." });
+      setFeedback({
+        type: "error",
+        message: "La capacité doit être un nombre positif.",
+      });
       return;
     }
 
@@ -81,6 +85,7 @@ const AdminBus = () => {
       const token = localStorage.getItem("token");
       const config = { headers: { Authorization: `Bearer ${token}` } };
 
+      console.log("Envoi modification bus:", editingBus, formData);
       if (editingBus) {
         await axios.put(
           `http://localhost:5000/api/bus/${editingBus}`,
@@ -104,7 +109,8 @@ const AdminBus = () => {
       fetchBuses();
     } catch (error) {
       console.error("Erreur submit", error);
-      setFeedback({ type: "error", message: "Une erreur est survenue." });
+      const msg = error.response?.data?.message || "Une erreur est survenue lors de l'enregistrement.";
+      setFeedback({ type: "error", message: msg });
     } finally {
       setSubmitting(false);
     }
@@ -122,35 +128,55 @@ const AdminBus = () => {
           <h2>Gestion des Bus</h2>
         </div>
 
-        {/* Nouveau Header d'Impression Pro */}
         <div className="print-only print-header-pro">
           <div className="print-header-main">
             <div className="print-entity-info">
               <h1 className="print-brand">TransPay</h1>
-              <p className="print-subtitle">SYSTÈME INTÉGRÉ DE TRANSPORT URBAIN - GOMA</p>
+              <p className="print-subtitle">
+                SYSTÈME INTÉGRÉ DE TRANSPORT URBAIN - GOMA
+              </p>
             </div>
             <div className="print-report-info">
               <h2 className="print-type">INVENTAIRE DU PARC AUTOMOBILE</h2>
-              <p className="print-date">Date d'émission: {new Date().toLocaleDateString('fr-FR')}</p>
+              <p className="print-date">
+                Date d'émission: {new Date().toLocaleDateString("fr-FR")}
+              </p>
             </div>
           </div>
           <div className="print-divider-clean"></div>
         </div>
-        <div className="search-bar-wrapper">
+        <div className="search-bar-wrapper no-print">
           <div className="search-input-container">
             <i className="bi bi-search search-icon"></i>
             <input
               type="text"
-              placeholder="Quel bus cherchez-vous ?"
+              placeholder="N° Enreg. ou Propriétaire..."
               className="search-input"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <Button 
-            text="Imprimer" 
-            icon="printer" 
-            onClick={handlePrint} 
+
+          <div className="filter-group">
+            <div className="filter-item">
+              <label>Filtrer par statut</label>
+              <select
+                className="filter-select"
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+              >
+                <option value="tous">Tous les bus</option>
+                <option value="actif">Actif</option>
+                <option value="maintenance">En maintenance</option>
+                <option value="hors_service">Hors service</option>
+              </select>
+            </div>
+          </div>
+
+          <Button
+            text=" Imprimer"
+            icon="printer"
+            onClick={handlePrint}
             className="print-button-small"
           />
         </div>
@@ -278,43 +304,64 @@ const AdminBus = () => {
                 </tr>
               </thead>
               <tbody>
-                {buses.filter(b => 
-                  b.numero_enregistrement.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                  b.nom_proprietaire.toLowerCase().includes(searchTerm.toLowerCase())
-                ).length > 0 ? (
+                {buses.filter((b) => {
+                  const searchStr = searchTerm.toLowerCase();
+                  const matchesSearch =
+                    b.numero_enregistrement.toLowerCase().includes(searchStr) ||
+                    b.nom_proprietaire.toLowerCase().includes(searchStr);
+                  const matchesStatus =
+                    filterStatus === "tous" || b.statut === filterStatus;
+                  return matchesSearch && matchesStatus;
+                }).length > 0 ? (
                   buses
-                    .filter(b => 
-                      b.numero_enregistrement.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                      b.nom_proprietaire.toLowerCase().includes(searchTerm.toLowerCase())
-                    )
+                    .filter((b) => {
+                      const searchStr = searchTerm.toLowerCase();
+                      const matchesSearch =
+                        b.numero_enregistrement
+                          .toLowerCase()
+                          .includes(searchStr) ||
+                        b.nom_proprietaire.toLowerCase().includes(searchStr);
+                      const matchesStatus =
+                        filterStatus === "tous" || b.statut === filterStatus;
+                      return matchesSearch && matchesStatus;
+                    })
                     .map((b) => (
-                    <tr key={b.id}>
-                      <td style={{ fontWeight: "700" }}>
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                          <span>{b.numero_enregistrement}</span>
-                          <code style={{ fontSize: '10px', color: 'var(--text-muted)' }}>ID: {b.id}</code>
-                        </div>
-                      </td>
-                      <td>{b.capacite} places</td>
-                      <td>{b.type_bus}</td>
-                      <td>{b.nom_proprietaire}</td>
-                      <td>
-                        <span className={`badge badge-${b.statut}`}>
-                          {b.statut.replace("_", " ")}
-                        </span>
-                      </td>
-                      <td className="no-print">
-                        <div className="admin-actions">
-                          <Button
-                            variant="primary"
-                            onClick={() => handleEdit(b)}
-                            text="Modifier"
-                            style={{ padding: "6px 12px", fontSize: "13px" }}
-                          />
-                        </div>
-                      </td>
-                    </tr>
-                  ))
+                      <tr key={b.id}>
+                        <td style={{ fontWeight: "700" }}>
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <span>{b.numero_enregistrement}</span>
+                            <code
+                              style={{
+                                fontSize: "10px",
+                                color: "var(--text-muted)",
+                              }}
+                            >
+                              ID: {b.id}
+                            </code>
+                          </div>
+                        </td>
+                        <td>{b.capacite} places</td>
+                        <td>{b.type_bus}</td>
+                        <td>{b.nom_proprietaire}</td>
+                        <td>
+                          <span className={`badge badge-${b.statut}`}>
+                            {b.statut.replace("_", " ")}
+                          </span>
+                        </td>
+                        <td className="no-print">
+                          <div className="admin-actions">
+                            <Button
+                              variant="primary"
+                              onClick={() => handleEdit(b)}
+                              text="Modifier"
+                              style={{ padding: "6px 12px", fontSize: "13px" }}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    ))
                 ) : (
                   <tr>
                     <td
@@ -333,7 +380,7 @@ const AdminBus = () => {
             </table>
           )}
         </div>
-        {/* Footer d'Impression Pro */}
+
         <div className="print-only print-footer-pro">
           <div className="print-footer-line"></div>
           <p className="print-footer-text">
