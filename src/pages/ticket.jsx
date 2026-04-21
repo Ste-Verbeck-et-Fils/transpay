@@ -229,6 +229,11 @@ const Ticket = () => {
             <button className="btn-pdf" onClick={handleDownloadPDF}>
               <i className="bi bi-download"></i> Enregistrer en PDF
             </button>
+            <button 
+  className="btn btn-secondary ms-2" 
+  onClick={() => window.print()}>
+  Imprimer la page
+</button>
           </div>
         </div>
       </div>
