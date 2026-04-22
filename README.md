@@ -82,7 +82,7 @@ git push origin feature/paiement
 
 - Creer une Pull Request
 
-## Interface Passager
+## Interface du Passager
 
 ## Page d'accueil du passager
 
@@ -132,6 +132,9 @@ git push origin feature/paiement
 
 <img width="100%" src="./docs/images/passager historique.png">
 
+
+## Interface du Controleur
+
 ## Page d'acceuil du Controleur 
 
 - cette page constitue l'interface d'accueil du controleur
@@ -149,3 +152,53 @@ git push origin feature/paiement
 - On verifie le ticket du controleur 
 
 <img width="100%" src="./docs/images/controller verification ticket.png">
+
+## Interface de l'Administrateur
+
+## Page Profil de l'admin
+
+- cette page represente l'interface d'accueil de l'administrateur
+
+<img width="100%" src="./docs/images/admin profile.png">
+
+## Page de consultation des  tickets
+
+- L’administrateur permet de gérer les tickets. Il peut consulter les tickets
+
+<img width="100%" src="./docs/images/admin tickets.png">
+
+## Page pour la gestion des trajets 
+
+- On peut consulter tout le trajet
+
+<img width="100%" src="./docs/images/admin trajets.png">
+
+## Page pour la gestion des utilisateurs
+
+- On gere les utilisateurs 
+
+<img width="100%" src="./docs/images/admin utilisateurs.png">
+
+## Page de l'historique de paiement 
+
+- l'admin peut consulter l'historique de paiement
+
+<img width="100%" src="./docs/images/admin paiements.png">
+
+
+## Page pour la gestion de bus 
+
+- l'admin peut gerer le bus 
+
+
+<img width="100%" src="./docs/images/admin bus.png">
+
+## Page du tableau de bord
+
+- l'admin consulte le tableau de bord 
+
+<img width="100%" src="./docs/images/admin dashboard.png">
+
+
+
+
