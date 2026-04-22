@@ -55,9 +55,14 @@ const Header = () => {
 
   const handleAuthAction = () => {
     if (isLoggedIn) {
+      const currentRole = userRole;
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      navigate("/login");
+      if (currentRole === "admin") {
+        navigate("/login");
+      } else {
+        navigate("/");
+      }
       return;
     }
     navigate("/login");

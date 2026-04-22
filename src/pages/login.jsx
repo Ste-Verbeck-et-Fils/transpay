@@ -50,7 +50,13 @@ function Login() {
         if (data.success) {
           localStorage.setItem("token", data.data.token);
           localStorage.setItem("user", JSON.stringify(data.data.user));
-          window.location.href = "/profile";
+          if (data.data.user.role === "admin") {
+            window.location.href = "/admin";
+          } else if (data.data.user.role === "controleur") {
+            window.location.href = "/verify";
+          } else {
+            window.location.href = "/trajet";
+          }
         } else {
           setErrors({ general: data.message });
         }
