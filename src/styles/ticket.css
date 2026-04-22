@@ -104,14 +104,13 @@
 
 .ticket-id-display {
   margin-top: 15px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-weight: 700;
   color: #868e96;
   letter-spacing: 2px;
   font-size: 14px;
 }
 
-/* Secondary Card Padding & Layout */
 .ticket-details-card {
   padding: 25px;
 }
@@ -122,9 +121,9 @@
   position: relative;
 }
 
-.dashed-divider::before, 
+.dashed-divider::before,
 .dashed-divider::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -10px;
   width: 20px;
@@ -133,8 +132,12 @@
   border-radius: 50%;
 }
 
-.dashed-divider::before { left: -10px; }
-.dashed-divider::after { right: -10px; }
+.dashed-divider::before {
+  left: -10px;
+}
+.dashed-divider::after {
+  right: -10px;
+}
 
 .details-grid {
   display: flex;
@@ -291,7 +294,7 @@
     border-radius: 0;
     margin: 0;
   }
-  
+
   .main-card {
     flex: 1.2;
     border-radius: 20px 0 0 20px;
@@ -313,12 +316,17 @@
     background: transparent;
   }
 
-  .dashed-divider::before, 
+  .dashed-divider::before,
   .dashed-divider::after {
     left: -9px;
     right: auto;
   }
 
-  .dashed-divider::before { top: -10px; }
-  .dashed-divider::after { top: auto; bottom: -10px; }
+  .dashed-divider::before {
+    top: -10px;
+  }
+  .dashed-divider::after {
+    top: auto;
+    bottom: -10px;
+  }
 }
