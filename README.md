@@ -132,4 +132,20 @@ git push origin feature/paiement
 
 <img width="100%" src="./docs/images/passager historique.png">
 
+## Page d'acceuil du Controleur 
 
+- cette page constitue l'interface d'accueil du controleur
+
+<img width="100%" src="./docs/images/controller home.png">
+
+## Page profil du controlleur 
+
+- Le profil du contrôleur contient ses informations personnelles.
+
+<img width="100%" src="./docs/images/controller profile.png">
+
+## Page de verification de ticket
+
+- On verifie le ticket du controleur 
+
+<img width="100%" src="./docs/images/controller verification ticket.png">
