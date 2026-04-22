@@ -104,7 +104,7 @@ git push origin feature/paiement
 
 ## Page du scanner QR CODE du passager 
 
-- Ici On nous montrer qu'on peut scanner 
+- Ici On nous montrer qu'on peut scanner ou saisir le code du bus afin de lier ce dernier au paiement du trajet qui a été choisi
 
 <img  width="100%" src="./docs/images/passager scan or type bus code.png">
 
@@ -149,7 +149,7 @@ git push origin feature/paiement
 
 ## Page de verification de ticket
 
-- On verifie le ticket du controleur 
+- On verifie la validité du ticket que le passager va presenter avant son entré dans le bus 
 
 <img width="100%" src="./docs/images/controller verification ticket.png">
 
