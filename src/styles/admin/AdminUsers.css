@@ -1,6 +1,5 @@
 @import "./BaseAdmin.css";
 
-/* User list specific styles */
 .user-avatar {
   width: 32px;
   height: 32px;
@@ -11,7 +10,7 @@
   justify-content: center;
   color: white;
   font-weight: bold;
-  fontSize: 12px;
+  fontsize: 12px;
 }
 
 .user-name-cell {
@@ -24,7 +23,6 @@
   font-weight: 600;
 }
 
-/* Status and Role selects in table */
 .table-select {
   width: 120px;
   padding: 4px 8px;

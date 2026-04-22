@@ -1,6 +1,5 @@
 @import "./BaseAdmin.css";
 
-/* Trajets specific styles */
 .itinerary-cell {
   display: flex;
   align-items: center;

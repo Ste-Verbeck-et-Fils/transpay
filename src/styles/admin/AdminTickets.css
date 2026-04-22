@@ -1,6 +1,5 @@
 @import "./BaseAdmin.css";
 
-/* Tickets specific styles */
 .ticket-code-style {
   font-size: 14px;
   color: var(--primary-hover);

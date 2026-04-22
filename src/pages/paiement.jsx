@@ -36,12 +36,25 @@ const PaymentResultFailed = ({ onRetry, onBack }) => (
         <i className="bi bi-info-circle"></i>
         <h3>Détails de l'erreur</h3>
       </div>
-      <p>Veuillez vérifier le solde de votre compte mobile money ou relancer la transaction si le délai a expiré.</p>
+      <p>
+        Veuillez vérifier le solde de votre compte mobile money ou relancer la
+        transaction si le délai a expiré.
+      </p>
     </div>
 
     <div className="result-actions">
-        <Button text="Réessayer" icon="arrow-clockwise" className="pay-btn btn-primary-yellow" onClick={onRetry} />
-        <Button text="Retour" variant="secondary" className="secondary-action-btn btn-grey" onClick={onBack} />
+      <Button
+        text="Réessayer"
+        icon="arrow-clockwise"
+        className="pay-btn btn-primary-yellow"
+        onClick={onRetry}
+      />
+      <Button
+        text="Retour"
+        variant="secondary"
+        className="secondary-action-btn btn-grey"
+        onClick={onBack}
+      />
     </div>
 
     <button type="button" className="support-link-btn">
@@ -55,7 +68,9 @@ function Paiement() {
   const navigate = useNavigate();
   const { bus, trajet } = location.state || {};
 
-  const [step, setStep] = useState(location.state?.autoStart ? "form" : "details");
+  const [step, setStep] = useState(
+    location.state?.autoStart ? "form" : "details",
+  );
   const [selectedOperator, setSelectedOperator] = useState("airtel");
   const [phone, setPhone] = useState("");
   const [createdPaiementId, setCreatedPaiementId] = useState(null);
@@ -64,22 +79,21 @@ function Paiement() {
 
   useEffect(() => {
     if (!location.state || !location.state.trajet || !location.state.bus) {
-      navigate('/trajet', { replace: true });
+      navigate("/trajet", { replace: true });
     }
   }, [location.state, navigate]);
 
-  // Fallback data
   const displayTrajet = trajet || {
     point_depart: "Rond-Point BDGL",
     point_arrivee: "Birere, Goma",
     prix: 500,
-    duree_estimee: "12-15 min"
+    duree_estimee: "12-15 min",
   };
 
   const displayBus = bus || {
     type_bus: "Minibus Hiace",
     nom_proprietaire: "JEAN-MARC VERBECK",
-    numero_enregistrement: "TP-8842"
+    numero_enregistrement: "TP-8842",
   };
 
   const canSubmit = phone.replace(/\D/g, "").length >= 9;
@@ -87,36 +101,43 @@ function Paiement() {
   const handleConfirmPayment = async () => {
     if (!canSubmit) return;
     setStep("loading");
-    
+
     try {
       const token = localStorage.getItem("token");
       const config = {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` },
       };
 
-      // 1. Create payment in DB
-      const payRes = await axios.post("http://localhost:5000/api/paiements", {
-        trajet_id: displayTrajet.id || 1,
-        bus_id: displayBus.id || 1,
-        montant: displayTrajet.prix,
-        moyen_paiement: selectedOperator === "airtel" ? "airtel_money" : "m_pesa"
-      }, config);
+      const payRes = await axios.post(
+        "http://localhost:5000/api/paiements",
+        {
+          trajet_id: displayTrajet.id || 1,
+          bus_id: displayBus.id || 1,
+          montant: displayTrajet.prix,
+          moyen_paiement:
+            selectedOperator === "airtel" ? "airtel_money" : "m_pesa",
+        },
+        config,
+      );
 
       const pId = payRes.data.data.id;
       setCreatedPaiementId(pId);
-      
-      const formattedDate = new Date().toLocaleDateString('fr-FR', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
+
+      const formattedDate = new Date().toLocaleDateString("fr-FR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
       });
       setTxnDate(formattedDate);
-      setTxnRef(`TXN-${new Date().getFullYear()}-${pId.toString().padStart(4, '0')}`);
+      setTxnRef(
+        `TXN-${new Date().getFullYear()}-${pId.toString().padStart(4, "0")}`,
+      );
 
-      // Redirect directly to ticket page
-      navigate("/ticket", { state: { paiement_id: pId, showSuccessToast: true } });
+      navigate("/ticket", {
+        state: { paiement_id: pId, showSuccessToast: true },
+      });
     } catch (err) {
       console.error("Payment error:", err);
       setStep("failed");
@@ -133,7 +154,10 @@ function Paiement() {
             <section className="trajet-summary-card">
               <div className="summary-left">
                 <span className="label">TRAJET SÉLECTIONNÉ</span>
-                <h2>{displayTrajet.point_depart} → {displayTrajet.point_arrivee.split(',')[0]}</h2>
+                <h2>
+                  {displayTrajet.point_depart} →{" "}
+                  {displayTrajet.point_arrivee.split(",")[0]}
+                </h2>
               </div>
               <div className="price-badge">
                 <span className="amount">{Math.floor(displayTrajet.prix)}</span>
@@ -164,14 +188,20 @@ function Paiement() {
 
               <div className="metrics-row">
                 <div className="metric-card">
-                  <div className="metric-icon"><i className="bi bi-clock"></i></div>
+                  <div className="metric-icon">
+                    <i className="bi bi-clock"></i>
+                  </div>
                   <div className="metric-info">
                     <span className="m-label">TEMPS</span>
-                    <span className="m-value">{displayTrajet.duree_estimee || "12-15 min"}</span>
+                    <span className="m-value">
+                      {displayTrajet.duree_estimee || "12-15 min"}
+                    </span>
                   </div>
                 </div>
                 <div className="metric-card">
-                  <div className="metric-icon"><i className="bi bi-bus-front"></i></div>
+                  <div className="metric-icon">
+                    <i className="bi bi-bus-front"></i>
+                  </div>
                   <div className="metric-info">
                     <span className="m-label">TYPE</span>
                     <span className="m-value">{displayBus.type_bus}</span>
@@ -183,8 +213,14 @@ function Paiement() {
             <section className="chauffeur-card">
               <div className="driver-info">
                 <div className="driver-avatar-wrapper">
-                  <img src={taxiChauffeurImg} alt="Propriétaire" className="driver-avatar" />
-                  <div className="verified-icon"><i className="bi bi-check"></i></div>
+                  <img
+                    src={taxiChauffeurImg}
+                    alt="Propriétaire"
+                    className="driver-avatar"
+                  />
+                  <div className="verified-icon">
+                    <i className="bi bi-check"></i>
+                  </div>
                 </div>
                 <div className="driver-name-box">
                   <span className="d-label">PROPRIÉTAIRE</span>
@@ -216,7 +252,9 @@ function Paiement() {
             <article className="trip-summary-block">
               <div className="block-header">
                 <span className="title">DÉTAILS DU TRAJET</span>
-                <span className="price">{Math.floor(displayTrajet.prix)} CDF</span>
+                <span className="price">
+                  {Math.floor(displayTrajet.prix)} CDF
+                </span>
               </div>
               <div className="block-body">
                 <div className="route-minimal">
@@ -228,7 +266,9 @@ function Paiement() {
                   <div className="route-point">
                     <span className="dot active-gold"></span>
                     <span className="label">A</span>
-                    <span className="value">{displayTrajet.point_arrivee.split(',')[0]}</span>
+                    <span className="value">
+                      {displayTrajet.point_arrivee.split(",")[0]}
+                    </span>
                   </div>
                 </div>
                 <div className="live-pill">EN DIRECT</div>
@@ -245,7 +285,7 @@ function Paiement() {
                     onClick={() => setSelectedOperator(op.id)}
                   >
                     <div className="img-box">
-                        <img src={op.logo} alt={op.name} />
+                      <img src={op.logo} alt={op.name} />
                     </div>
                     <span>{op.name}</span>
                   </button>
@@ -254,41 +294,47 @@ function Paiement() {
             </section>
 
             <section className="input-section">
-                <h2 className="section-title">Numéro Mobile Money</h2>
-                <div className="phone-input-wrapper">
-                    <div className="prefix-box">
-                        <img src={rdcFlag} alt="DRC Flag" className="flag-icon" />
-                        <span>+243</span>
-                    </div>
-                    <input 
-                        type="tel" 
-                        placeholder="000 000 000" 
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        className="main-phone-input"
-                    />
+              <h2 className="section-title">Numéro Mobile Money</h2>
+              <div className="phone-input-wrapper">
+                <div className="prefix-box">
+                  <img src={rdcFlag} alt="DRC Flag" className="flag-icon" />
+                  <span>+243</span>
                 </div>
-                <p className="help-text">
-                    Entrez le numéro associé à votre compte {selectedOperator.charAt(0).toUpperCase() + selectedOperator.slice(1)} Money pour valider le paiement par notification PUSH.
-                </p>
+                <input
+                  type="tel"
+                  placeholder="000 000 000"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="main-phone-input"
+                />
+              </div>
+              <p className="help-text">
+                Entrez le numéro associé à votre compte{" "}
+                {selectedOperator.charAt(0).toUpperCase() +
+                  selectedOperator.slice(1)}{" "}
+                Money pour valider le paiement par notification PUSH.
+              </p>
             </section>
 
             <article className="safety-card">
-                <div className="safety-icon">
-                    <i className="bi bi-shield-lock-fill"></i>
-                </div>
-                <div className="safety-text">
-                    <h3>Paiement 100% Rassurant</h3>
-                    <p>Cryptage SSL de bout en bout et validation sécurisée par code PIN sur votre téléphone.</p>
-                </div>
+              <div className="safety-icon">
+                <i className="bi bi-shield-lock-fill"></i>
+              </div>
+              <div className="safety-text">
+                <h3>Paiement 100% Rassurant</h3>
+                <p>
+                  Cryptage SSL de bout en bout et validation sécurisée par code
+                  PIN sur votre téléphone.
+                </p>
+              </div>
             </article>
 
-            <button 
-                className={`btn-submit-pay ${!canSubmit ? "disabled" : ""}`}
-                disabled={!canSubmit}
-                onClick={handleConfirmPayment}
+            <button
+              className={`btn-submit-pay ${!canSubmit ? "disabled" : ""}`}
+              disabled={!canSubmit}
+              onClick={handleConfirmPayment}
             >
-                Payer maintenant <i className="bi bi-chevron-right"></i>
+              Payer maintenant <i className="bi bi-chevron-right"></i>
             </button>
           </div>
         ) : step === "loading" ? (
@@ -298,9 +344,9 @@ function Paiement() {
             <p>Veuillez confirmer la transaction sur votre téléphone.</p>
           </div>
         ) : (
-          <PaymentResultFailed 
-             onRetry={() => setStep("form")} 
-             onBack={() => navigate("/home")} 
+          <PaymentResultFailed
+            onRetry={() => setStep("form")}
+            onBack={() => navigate("/home")}
           />
         )}
       </main>

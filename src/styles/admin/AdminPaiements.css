@@ -1,7 +1,7 @@
 @import "./BaseAdmin.css";
 
-/* Paiements list specific styles */
-.user-info-stack, .trajet-info-stack {
+.user-info-stack,
+.trajet-info-stack {
   display: flex;
   flex-direction: column;
 }

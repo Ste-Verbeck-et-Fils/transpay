@@ -1,4 +1,3 @@
-/* Shared administrative styles */
 .admin-container {
   padding: 40px 20px;
   max-width: 1200px;
@@ -67,7 +66,6 @@
   gap: 12px;
 }
 
-/* Forms */
 .admin-form-container {
   background: white;
   padding: 32px;
@@ -141,11 +139,19 @@
   text-transform: uppercase;
 }
 
-.badge-actif { background: var(--success-bg); color: var(--success-text); }
-.badge-maintenance { background: #fff7ed; color: #c2410c; }
-.badge-hors_service { background: var(--error-bg); color: var(--error-text); }
+.badge-actif {
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+.badge-maintenance {
+  background: #fff7ed;
+  color: #c2410c;
+}
+.badge-hors_service {
+  background: var(--error-bg);
+  color: var(--error-text);
+}
 
-/* Filters & Search */
 .search-bar-wrapper {
   display: flex;
   align-items: center;
@@ -177,7 +183,8 @@
   text-transform: uppercase;
 }
 
-.filter-select, .filter-date-input {
+.filter-select,
+.filter-date-input {
   padding: 6px 10px;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
@@ -226,24 +233,24 @@
   min-width: fit-content !important;
 }
 
-/* Responsiveness */
 @media (max-width: 768px) {
   .admin-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
   }
-  
+
   .admin-table-container {
     overflow-x: auto;
   }
 
-  .admin-table th, .admin-table td {
+  .admin-table th,
+  .admin-table td {
     padding: 12px 16px;
     font-size: 14px;
     white-space: nowrap;
   }
-  
+
   .admin-form-grid {
     grid-template-columns: 1fr;
   }
@@ -264,7 +271,8 @@
     justify-content: space-between;
   }
 
-  .filter-select, .filter-date-input {
+  .filter-select,
+  .filter-date-input {
     flex: 1;
   }
 
@@ -278,17 +286,29 @@
   }
 }
 
-/* Print */
-.print-only { display: none; }
+.print-only {
+  display: none;
+}
 
 @media print {
-  header, footer, .search-bar-wrapper, .admin-header, .admin-form-container, .admin-form-actions, .admin-actions, .no-print {
+  header,
+  footer,
+  .search-bar-wrapper,
+  .admin-header,
+  .admin-form-container,
+  .admin-form-actions,
+  .admin-actions,
+  .no-print {
     display: none !important;
   }
 
-  .print-only { display: block !important; }
+  .print-only {
+    display: block !important;
+  }
 
-  .print-header-pro { margin-bottom: 30px; }
+  .print-header-pro {
+    margin-bottom: 30px;
+  }
   .print-header-main {
     display: flex;
     justify-content: space-between;
@@ -296,21 +316,82 @@
     padding-bottom: 10px;
   }
 
-  .print-brand { font-size: 32px; font-weight: 900; color: #000; margin: 0; }
-  .print-subtitle { font-size: 11px; color: #666; margin: 4px 0 0 0; text-transform: uppercase; }
-  .print-type { font-size: 14px; font-weight: 700; margin: 0; }
-  .print-date { font-size: 12px; color: #444; }
-  .print-divider-clean { height: 2px; background: #000; width: 100%; margin-bottom: 25px; }
+  .print-brand {
+    font-size: 32px;
+    font-weight: 900;
+    color: #000;
+    margin: 0;
+  }
+  .print-subtitle {
+    font-size: 11px;
+    color: #666;
+    margin: 4px 0 0 0;
+    text-transform: uppercase;
+  }
+  .print-type {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .print-date {
+    font-size: 12px;
+    color: #444;
+  }
+  .print-divider-clean {
+    height: 2px;
+    background: #000;
+    width: 100%;
+    margin-bottom: 25px;
+  }
 
-  .admin-container { padding: 0; max-width: 100%; margin: 0; }
-  .admin-table-container { box-shadow: none; border: none; overflow: visible; }
-  .admin-table { width: 100%; border-collapse: collapse; border: 1px solid #e2e8f0; font-size: 11px; }
-  .admin-table th { background: #f8fafc !important; border: 1px solid #e2e8f0 !important; padding: 12px 8px !important; }
-  .admin-table td { border: 1px solid #e2e8f0 !important; padding: 10px 8px !important; }
+  .admin-container {
+    padding: 0;
+    max-width: 100%;
+    margin: 0;
+  }
+  .admin-table-container {
+    box-shadow: none;
+    border: none;
+    overflow: visible;
+  }
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #e2e8f0;
+    font-size: 11px;
+  }
+  .admin-table th {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 12px 8px !important;
+  }
+  .admin-table td {
+    border: 1px solid #e2e8f0 !important;
+    padding: 10px 8px !important;
+  }
 
-  .print-footer-pro { position: fixed; bottom: 2rem; left: 0; right: 0; text-align: center; }
-  .print-footer-line { height: 1px; background: #e2e8f0; width: 100%; margin-bottom: 12px; }
-  .print-footer-text { font-size: 10px; font-weight: 500; color: #64748b; text-transform: uppercase; }
+  .print-footer-pro {
+    position: fixed;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+  .print-footer-line {
+    height: 1px;
+    background: #e2e8f0;
+    width: 100%;
+    margin-bottom: 12px;
+  }
+  .print-footer-text {
+    font-size: 10px;
+    font-weight: 500;
+    color: #64748b;
+    text-transform: uppercase;
+  }
 
-  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }
