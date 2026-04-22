@@ -121,7 +121,6 @@
   line-height: 1.5;
 }
 
-/* Form modal styles */
 .admin-form-container {
   background: white;
   padding: 32px;
@@ -152,7 +151,6 @@
   margin-top: 8px;
 }
 
-/* Custom select styling to match Input component */
 .admin-select-group {
   display: flex;
   flex-direction: column;
@@ -196,9 +194,18 @@
   text-transform: uppercase;
 }
 
-.badge-actif { background: var(--success-bg); color: var(--success-text); }
-.badge-maintenance { background: #fff7ed; color: #c2410c; }
-.badge-hors_service { background: var(--error-bg); color: var(--error-text); }
+.badge-actif {
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+.badge-maintenance {
+  background: #fff7ed;
+  color: #c2410c;
+}
+.badge-hors_service {
+  background: var(--error-bg);
+  color: var(--error-text);
+}
 
 .admin-chart-section {
   margin-top: 40px;
@@ -239,11 +246,11 @@
     align-items: flex-start;
     gap: 16px;
   }
-  
+
   .admin-table-container {
     overflow-x: auto;
   }
-  
+
   .admin-form-grid {
     grid-template-columns: 1fr;
   }
@@ -290,7 +297,8 @@
   text-transform: uppercase;
 }
 
-.filter-select, .filter-date-input {
+.filter-select,
+.filter-date-input {
   padding: 6px 10px;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
@@ -302,7 +310,8 @@
   transition: border-color 0.2s;
 }
 
-.filter-select:focus, .filter-date-input:focus {
+.filter-select:focus,
+.filter-date-input:focus {
   border-color: var(--primary-color);
 }
 
@@ -365,7 +374,14 @@
 }
 
 @media print {
-  header, footer, .search-bar-wrapper, .admin-header, .admin-form-container, .admin-form-actions, .admin-actions, .no-print {
+  header,
+  footer,
+  .search-bar-wrapper,
+  .admin-header,
+  .admin-form-container,
+  .admin-form-actions,
+  .admin-actions,
+  .no-print {
     display: none !important;
   }
 
@@ -375,7 +391,7 @@
 
   .print-header-pro {
     margin-bottom: 30px;
-    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-family: "Inter", "Segoe UI", sans-serif;
   }
 
   .print-header-main {
@@ -494,7 +510,6 @@
     background: white;
   }
 
-  /* Force print background colors if needed */
   * {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
