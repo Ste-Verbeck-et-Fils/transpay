@@ -48,29 +48,31 @@ function Register() {
     if (validate()) {
       setIsLoading(true);
       try {
-        const response = await fetch('http://localhost:5000/api/auth/register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await fetch(
+          "http://localhost:5000/api/auth/register",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              nom_complet: formData.name,
+              telephone: formData.phone,
+              motdepasse: formData.password,
+            }),
           },
-          body: JSON.stringify({
-            nom_complet: formData.name,
-            telephone: formData.phone,
-            motdepasse: formData.password,
-          }),
-        });
+        );
         const data = await response.json();
         if (data.success) {
-          // Store token
-          localStorage.setItem('token', data.data.token);
-          localStorage.setItem('user', JSON.stringify(data.data.user));
-          // Navigate to home or profile
-          navigate('/profile');
+          localStorage.setItem("token", data.data.token);
+          localStorage.setItem("user", JSON.stringify(data.data.user));
+
+          navigate("/profile");
         } else {
           setErrors({ general: data.message });
         }
       } catch (error) {
-        setErrors({ general: 'Erreur de connexion au serveur' });
+        setErrors({ general: "Erreur de connexion au serveur" });
       } finally {
         setIsLoading(false);
       }

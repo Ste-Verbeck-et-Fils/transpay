@@ -1,6 +1,5 @@
 @import "./BaseAdmin.css";
 
-/* Bus inventory specific styles */
 .bus-id-code {
   font-size: 10px;
   color: var(--text-muted);

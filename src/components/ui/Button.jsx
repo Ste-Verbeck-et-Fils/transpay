@@ -11,14 +11,12 @@ const Button = ({
   type = "button",
   className = "",
 }) => {
-  // Déterminer la classe de variante
   let variantClass = "btn-primary";
   if (variant === "secondary") variantClass = "btn-secondary";
   else if (variant === "outline") variantClass = "btn-outline";
   else if (variant === "ghost") variantClass = "btn-ghost";
   else if (variant === "loading") variantClass = "btn-loading";
 
-  // Déterminer le contenu de l'icône ou du spinner
   let contentIcon = null;
   if (isLoading) {
     contentIcon = (
@@ -32,7 +30,6 @@ const Button = ({
     contentIcon = <i className={`bi bi-${icon} me-2`}></i>;
   }
 
-  // Flèche spécifique pour le ghost
   let arrowIcon = null;
   if (variant === "ghost") {
     arrowIcon = <i className="bi bi-arrow-right ms-2 small-arrow"></i>;
