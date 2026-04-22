@@ -82,44 +82,123 @@ git push origin feature/paiement
 
 - Creer une Pull Request
 
-## Notre page d'accueil 
+## Interface du Passager
 
--Cette page d’accueil est jolie et facile à comprendre. Elle présente clairement les principales fonctions de l’application TransPay et permet à l’utilisateur de s’y retrouver rapidement.
+## Page d'accueil du passager
 
-<img width="100%" src="./docs/images/home.png"  >  
+- Cette page presente la page d'accueil du passager
 
-## Dashboard
+<img width="100%" src="./docs/images/passager home.png"  > 
 
-- Une page de tableau de bord qui contient les graphiques
-  
-<img width="100%" src="./docs/images/dashboards.png" >
+## Page pour voir le profile du passager
 
-## Page des trajets 
+- Dans cette page on peut voir le profil du passager
 
--une page des trajets qui indique les trajets que les passagers sera entrain de faire le prix a payer,la duree et le statut 
+<img  width="100%" src="./docs/images/passager profile.png">
 
-<img width="100%" src="./docs/images/trajets.png">
+## Page de paiement du passager
 
-## Page d'ajout d'un nouveau bus
+- Dans cette page on nous montre qu'un passager peut effectuer un paiement 
 
--sur cette page on voit clairement les enregistrements,qr code,capacite,type de bus,le nom du proprietaire 
+<img  width="100%" src="./docs/images/passager paiement mobile.png">
 
-<img width="100%" src="./docs/images/bus.png">
+## Page du scanner QR CODE du passager 
 
-## Page de l'utilisateur
+- Ici On nous montrer qu'on peut scanner 
 
--cette page c'est pour la gestions des utilisateurs
+<img  width="100%" src="./docs/images/passager scan or type bus code.png">
 
-<img width="100%" src="./docs/images/utilisateurs.png" >
+## Page ticket passager
 
-## Page de paiement
+- c'est une page pour le ticket du passager
 
--la ou on peut effectuer le paiement
+<img  width="100%" src="./docs/images/passager ticket.png">
 
-<img width="100%" src="./docs/images/paiement.png">
+## Page pour les trajets disponible
 
-## Page du ticket
+- ca nous montre les trajets qui sont disponible 
 
--il y a les tickets des clients
+<img width="100%" src="./docs/images/passager trajet.png">
 
-<img width="100%" src="./docs/images/tickets.png">
+## Page des details de paiement et trajet 
+
+- il y a toutes les details du paiement et du trajet 
+
+<img width="100%" src="./docs/images/passager details paiement+trajet.png">
+
+## Page de l'historique 
+
+- il y a l'historique tu trajet 
+
+<img width="100%" src="./docs/images/passager historique.png">
+
+
+## Interface du Controleur
+
+## Page d'acceuil du Controleur 
+
+- cette page constitue l'interface d'accueil du controleur
+
+<img width="100%" src="./docs/images/controller home.png">
+
+## Page profil du controlleur 
+
+- Le profil du contrôleur contient ses informations personnelles.
+
+<img width="100%" src="./docs/images/controller profile.png">
+
+## Page de verification de ticket
+
+- On verifie le ticket du controleur 
+
+<img width="100%" src="./docs/images/controller verification ticket.png">
+
+## Interface de l'Administrateur
+
+## Page Profil de l'admin
+
+- cette page represente l'interface d'accueil de l'administrateur
+
+<img width="100%" src="./docs/images/admin profile.png">
+
+## Page de consultation des  tickets
+
+- L’administrateur permet de gérer les tickets. Il peut consulter les tickets
+
+<img width="100%" src="./docs/images/admin tickets.png">
+
+## Page pour la gestion des trajets 
+
+- On peut consulter tout le trajet
+
+<img width="100%" src="./docs/images/admin trajets.png">
+
+## Page pour la gestion des utilisateurs
+
+- On gere les utilisateurs 
+
+<img width="100%" src="./docs/images/admin utilisateurs.png">
+
+## Page de l'historique de paiement 
+
+- l'admin peut consulter l'historique de paiement
+
+<img width="100%" src="./docs/images/admin paiements.png">
+
+
+## Page pour la gestion de bus 
+
+- l'admin peut gerer le bus 
+
+
+<img width="100%" src="./docs/images/admin bus.png">
+
+## Page du tableau de bord
+
+- l'admin consulte le tableau de bord 
+
+<img width="100%" src="./docs/images/admin dashboard.png">
+
+
+
+
