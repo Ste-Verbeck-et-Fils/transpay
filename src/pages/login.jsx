@@ -36,10 +36,10 @@ function Login() {
     if (validate()) {
       setIsLoading(true);
       try {
-        const response = await fetch('http://localhost:5000/api/auth/login', {
-          method: 'POST',
+        const response = await fetch("http://localhost:5000/api/auth/login", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             telephone: formData.phone,
@@ -48,16 +48,20 @@ function Login() {
         });
         const data = await response.json();
         if (data.success) {
-          // Store token
-          localStorage.setItem('token', data.data.token);
-          localStorage.setItem('user', JSON.stringify(data.data.user));
-          // Navigate to home or profile
-          window.location.href = '/profile';
+          localStorage.setItem("token", data.data.token);
+          localStorage.setItem("user", JSON.stringify(data.data.user));
+          if (data.data.user.role === "admin") {
+            window.location.href = "/admin";
+          } else if (data.data.user.role === "controleur") {
+            window.location.href = "/verify";
+          } else {
+            window.location.href = "/trajet";
+          }
         } else {
           setErrors({ general: data.message });
         }
       } catch (error) {
-        setErrors({ general: 'Erreur de connexion au serveur' });
+        setErrors({ general: "Erreur de connexion au serveur" });
       } finally {
         setIsLoading(false);
       }

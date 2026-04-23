@@ -1,0 +1,47 @@
+@import "./BaseAdmin.css";
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  fontsize: 12px;
+}
+
+.user-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-name-text {
+  font-weight: 600;
+}
+
+.table-select {
+  width: 120px;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.status-select-active {
+  color: var(--success-text);
+  font-weight: 600;
+}
+
+.status-select-inactive {
+  color: var(--error-text);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .user-name-cell {
+    flex-direction: row;
+    align-items: center;
+  }
+}

@@ -1,15 +1,21 @@
-# TransPay Frontend
+# TransPay
 
-TransPay Frontend est l’application côté client du système TransPay, une plateforme de paiement automatisé du transport en commun utilisant le Mobile Money.
+TransPay est une plateforme de paiement automatisé du transport en commun utilisant le Mobile Money.
+Developpé par les etudiant de l'institut superieur d'informatique et de gestion (ISIG-GOMA) en 2026 dans le cadre d'un examen du cours de genie logiciel dispensé par le CT Josué Isamuna
+
+## GROUPE 9
 
 ## Objectif du projet
 
 Cette application fait partie du projet TransPay, conçu pour faciliter le paiement des frais de transport en commun à travers un système rapide, sécurisé et sans argent liquide.
 
-## Technologies frontend
+## Technologies
 
 - React vite
 - Css et Bootstrap
+- NodeJs
+- Express
+- Mysql
 
 ## Architecture des dossiers
 
@@ -34,12 +40,17 @@ frontend/
 
 ## Fonctionnalités
 
-- Authentification des utilisateurs
-- Sélection des trajets
-- Affichage du tarif
+- Authentification des utilisateurs selon les role(passager, controleur, admin)
+- Gestion des bus
+- Gestion des trajets
+- Gestion des utilisateurs
+- Gestion des paiements
+- Gestion des tickets
+- Consultation du ticket
+- Consultation du tarif
 - Interface de paiement Mobile Money
-- Affichage du ticket numérique
-- Historique des paiements
+- Consultation du ticket numérique
+- Consultation de l'historique des paiements
 
 ## Installation du projet
 
@@ -64,6 +75,7 @@ npm run dev
 
 ```bash
 git checkout develop
+git pull
 git checkout -b feature/paiement
 ```
 
@@ -88,7 +100,7 @@ git push origin feature/paiement
 
 - Cette page presente la page d'accueil du passager
 
-<img width="100%" src="./docs/images/passager home.png"  > 
+<img width="100%" src="./docs/images/passager home.png"  >
 
 ## Page pour voir le profile du passager
 
@@ -98,13 +110,13 @@ git push origin feature/paiement
 
 ## Page de paiement du passager
 
-- Dans cette page on nous montre qu'un passager peut effectuer un paiement 
+- Dans cette page on nous montre qu'un passager peut effectuer un paiement
 
 <img  width="100%" src="./docs/images/passager paiement mobile.png">
 
-## Page du scanner QR CODE du passager 
+## Page du scanner QR CODE du passager
 
-- Ici On nous montrer qu'on peut scanner 
+- Ici On nous montrer qu'on peut scanner ou saisir le code du bus afin de lier ce dernier au paiement du trajet qui a été choisi
 
 <img  width="100%" src="./docs/images/passager scan or type bus code.png">
 
@@ -116,32 +128,31 @@ git push origin feature/paiement
 
 ## Page pour les trajets disponible
 
-- ca nous montre les trajets qui sont disponible 
+- ca nous montre les trajets qui sont disponible
 
 <img width="100%" src="./docs/images/passager trajet.png">
 
-## Page des details de paiement et trajet 
+## Page des details de paiement et trajet
 
-- il y a toutes les details du paiement et du trajet 
+- il y a toutes les details du paiement et du trajet
 
 <img width="100%" src="./docs/images/passager details paiement+trajet.png">
 
-## Page de l'historique 
+## Page de l'historique
 
-- il y a l'historique tu trajet 
+- il y a l'historique tu trajet
 
 <img width="100%" src="./docs/images/passager historique.png">
 
-
 ## Interface du Controleur
 
-## Page d'acceuil du Controleur 
+## Page d'acceuil du Controleur
 
 - cette page constitue l'interface d'accueil du controleur
 
 <img width="100%" src="./docs/images/controller home.png">
 
-## Page profil du controlleur 
+## Page profil du controlleur
 
 - Le profil du contrôleur contient ses informations personnelles.
 
@@ -149,7 +160,7 @@ git push origin feature/paiement
 
 ## Page de verification de ticket
 
-- On verifie le ticket du controleur 
+- On verifie la validité du ticket que le passager va presenter avant son entré dans le bus
 
 <img width="100%" src="./docs/images/controller verification ticket.png">
 
@@ -161,13 +172,13 @@ git push origin feature/paiement
 
 <img width="100%" src="./docs/images/admin profile.png">
 
-## Page de consultation des  tickets
+## Page de consultation des tickets
 
 - L’administrateur permet de gérer les tickets. Il peut consulter les tickets
 
 <img width="100%" src="./docs/images/admin tickets.png">
 
-## Page pour la gestion des trajets 
+## Page pour la gestion des trajets
 
 - On peut consulter tout le trajet
 
@@ -175,27 +186,25 @@ git push origin feature/paiement
 
 ## Page pour la gestion des utilisateurs
 
-- On gere les utilisateurs 
+- On gere les utilisateurs
 
 <img width="100%" src="./docs/images/admin utilisateurs.png">
 
-## Page de l'historique de paiement 
+## Page de l'historique de paiement
 
 - l'admin peut consulter l'historique de paiement
 
 <img width="100%" src="./docs/images/admin paiements.png">
 
+## Page pour la gestion de bus
 
-## Page pour la gestion de bus 
-
-- l'admin peut gerer le bus 
-
+- l'admin peut gerer le bus
 
 <img width="100%" src="./docs/images/admin bus.png">
 
 ## Page du tableau de bord
 
-- l'admin consulte le tableau de bord 
+- l'admin consulte le tableau de bord
 
 <img width="100%" src="./docs/images/admin dashboard.png">
 
