@@ -1,3 +1,4 @@
+import API_BASE_URL from "../config.js";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -108,8 +109,7 @@ function Paiement() {
         headers: { Authorization: `Bearer ${token}` },
       };
 
-      const payRes = await axios.post(
-        "http://localhost:5000/api/paiements",
+      const payRes = await axios.post( `${API_BASE_URL}/paiements`,
         {
           trajet_id: displayTrajet.id || 1,
           bus_id: displayBus.id || 1,

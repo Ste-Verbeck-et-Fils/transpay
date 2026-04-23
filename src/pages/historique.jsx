@@ -1,3 +1,4 @@
+import API_BASE_URL from "../config.js";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/layout/Header";
@@ -25,7 +26,7 @@ const Historique = () => {
 
         const user = JSON.parse(userStr);
 
-        const response = await axios.get(`http://localhost:5000/api/paiements/user/${user.id}`, {
+        const response = await axios.get( `${API_BASE_URL}/paiements/user/${user.id}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

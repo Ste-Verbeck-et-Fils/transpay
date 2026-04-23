@@ -1,3 +1,4 @@
+import API_BASE_URL from "../config.js";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Header from "../components/layout/Header";
@@ -34,7 +35,7 @@ const Profile = () => {
       }
 
       try {
-        const response = await fetch("http://localhost:5000/api/profile", {
+        const response = await fetch( `${API_BASE_URL}/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -76,7 +77,7 @@ const Profile = () => {
   const handleLogout = async () => {
     const token = localStorage.getItem("token");
     try {
-      await fetch("http://localhost:5000/api/auth/logout", {
+      await fetch( `${API_BASE_URL}/auth/logout`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -118,7 +119,7 @@ const Profile = () => {
 
     setSaving(true);
     try {
-      const response = await fetch("http://localhost:5000/api/profile", {
+      const response = await fetch( `${API_BASE_URL}/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -189,8 +190,7 @@ const Profile = () => {
     const token = localStorage.getItem("token");
     setPasswordLoading(true);
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/change-password",
+      const response = await fetch( `${API_BASE_URL}/change-password`,
         {
           method: "PUT",
           headers: {

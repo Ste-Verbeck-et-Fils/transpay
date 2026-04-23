@@ -1,3 +1,4 @@
+import API_BASE_URL from "../../config.js";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../../components/layout/Header";
@@ -24,7 +25,7 @@ const AdminTickets = () => {
   const fetchTickets = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/api/tickets", {
+      const response = await axios.get( `${API_BASE_URL}/tickets`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.data.success) {

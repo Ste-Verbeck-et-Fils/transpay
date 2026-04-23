@@ -1,3 +1,4 @@
+import API_BASE_URL from "../config.js";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -31,16 +32,14 @@ const Ticket = () => {
         };
 
         try {
-          const response = await axios.post(
-            "http://localhost:5000/api/tickets/generate",
+          const response = await axios.post( `${API_BASE_URL}/tickets/generate`,
             { paiement_id: targetPaiementId },
             config,
           );
           setTicket(response.data.data);
         } catch (err) {
           if (err.response && err.response.status === 400) {
-            const fetchResponse = await axios.get(
-              `http://localhost:5000/api/tickets/paiement/${targetPaiementId}`,
+            const fetchResponse = await axios.get( `${API_BASE_URL}/tickets/paiement/${targetPaiementId}`,
               config,
             );
             setTicket(fetchResponse.data.data);

@@ -1,3 +1,4 @@
+import API_BASE_URL from "../config.js";
 import React, { useState, useEffect } from "react";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
@@ -18,7 +19,7 @@ const Trajet = () => {
   useEffect(() => {
     const fetchTrajets = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/trajets");
+        const response = await fetch( `${API_BASE_URL}/trajets`);
         const data = await response.json();
         if (data.success) {
           setTrajets(data.data);

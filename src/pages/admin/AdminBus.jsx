@@ -1,3 +1,4 @@
+import API_BASE_URL from "../../config.js";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../../components/layout/Header";
@@ -34,7 +35,7 @@ const AdminBus = () => {
   const fetchBuses = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/api/bus", {
+      const response = await axios.get( `${API_BASE_URL}/bus`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.data.success) {
@@ -57,7 +58,7 @@ const AdminBus = () => {
     if (!window.confirm("Êtes-vous sûr de vouloir supprimer ce bus ?")) return;
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/bus/${id}`, {
+      await axios.delete( `${API_BASE_URL}/bus/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFeedback({ type: "success", message: "Bus supprimé avec succès." });
@@ -85,8 +86,7 @@ const AdminBus = () => {
       const config = { headers: { Authorization: `Bearer ${token}` } };
 
       if (editingBus) {
-        await axios.put(
-          `http://localhost:5000/api/bus/${editingBus}`,
+        await axios.put( `${API_BASE_URL}/bus/${editingBus}`,
           formData,
           config,
         );
@@ -95,7 +95,7 @@ const AdminBus = () => {
           message: "Bus mis à jour avec succès.",
         });
       } else {
-        await axios.post("http://localhost:5000/api/bus", formData, config);
+        await axios.post( `${API_BASE_URL}/bus`, formData, config);
         setFeedback({
           type: "success",
           message: "Nouveau bus ajouté avec succès.",

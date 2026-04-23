@@ -1,3 +1,4 @@
+import API_BASE_URL from "../config.js";
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Html5QrcodeScanner } from "html5-qrcode";
@@ -44,7 +45,7 @@ const Scan = () => {
     setError(null);
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/bus/identify", {
+      const response = await fetch( `${API_BASE_URL}/bus/identify`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

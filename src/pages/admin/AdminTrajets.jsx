@@ -1,3 +1,4 @@
+import API_BASE_URL from "../../config.js";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../../components/layout/Header";
@@ -34,7 +35,7 @@ const AdminTrajets = () => {
   const fetchTrajets = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/api/trajets/admin/all", {
+      const response = await axios.get( `${API_BASE_URL}/trajets/admin/all`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (response.data.success) {
@@ -64,7 +65,7 @@ const AdminTrajets = () => {
       return;
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/trajets/${id}`, {
+      await axios.delete( `${API_BASE_URL}/trajets/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFeedback({ type: "success", message: "Trajet supprimé avec succès." });
@@ -92,8 +93,7 @@ const AdminTrajets = () => {
       const config = { headers: { Authorization: `Bearer ${token}` } };
 
       if (editingTrajet) {
-        await axios.put(
-          `http://localhost:5000/api/trajets/${editingTrajet}`,
+        await axios.put( `${API_BASE_URL}/trajets/${editingTrajet}`,
           formData,
           config,
         );
@@ -102,7 +102,7 @@ const AdminTrajets = () => {
           message: "Trajet mis à jour avec succès.",
         });
       } else {
-        await axios.post("http://localhost:5000/api/trajets", formData, config);
+        await axios.post( `${API_BASE_URL}/trajets`, formData, config);
         setFeedback({
           type: "success",
           message: "Nouveau trajet créé avec succès.",
