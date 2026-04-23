@@ -199,6 +199,48 @@ git push origin feature/paiement
 
 <img width="100%" src="./docs/images/admin dashboard.png">
 
+## Etat de sortie
+
+## Etat ticket du Passager 
+
+- Un etat de sortie du ticket du passager 
+
+<img width="100%" src="./docs/images/etat ticket passager.png">
+
+## Etat de Paiement 
+
+- c'est un etat de sortie qui montre tout le paiement qui ont ete effectuer par les utilisateurs 
+
+<img width="100%" src="./docs/images/etat paiement.png">
+
+## Etat de Bus
+
+- Il présente une liste de véhicules avec leurs informations principales comme le numéro, la capacité, le type, le propriétaire et le statut.
+
+<img width="100%" src="./docs/images/etat bus.png">
+
+## Etat Tickets 
+
+- Il affiche les informations des tickets comme le client, le code, le bus, les dates et le statut cet état permet de suivre la validité ou l’expiration des tickets.
+
+<img width="100%" src="./docs/images/etat tickets.png">
+
+## Etat Trajet 
+
+- Cet état de sortie présente le catalogue disponibles dans le système il contient les trajets avec leurs prix, durées et statuts d’activité cet état permet de visualiser les itinéraires actifs et inactifs.
+
+<img width="100%" src="./docs/images/etat trajet.png">
+
+## Etat Utilisateur
+
+- Cet état de sortie présente la liste des utilisateurs avec leurs informations Il affiche le rôle, le numéro de téléphone et la date d’inscription et le statut de chaque utilisateur.
+
+<img width="100%" src="./docs/images/etat utilisateurs.png">
+
+
+
+
+
 
 
 
